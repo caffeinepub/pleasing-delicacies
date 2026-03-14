@@ -436,10 +436,7 @@ const FALLBACK_SAVOURIES: ProductData[] = [
     image: "/assets/uploads/image-1-1.png",
     category: ProductCategory.savoury,
     shelfLife: "3-4 weeks in an airtight container",
-    pricing: [
-      { weight: "100g", price: 150 },
-      { weight: "200g", price: 280 },
-    ],
+    pricing: [{ weight: "100g", price: 300 }],
   },
   {
     name: "Pepper Butter Makhana",
@@ -460,10 +457,7 @@ const FALLBACK_SAVOURIES: ProductData[] = [
     image: "/assets/uploads/image-2-1.png",
     category: ProductCategory.savoury,
     shelfLife: "3-4 weeks in an airtight container",
-    pricing: [
-      { weight: "100g", price: 150 },
-      { weight: "200g", price: 280 },
-    ],
+    pricing: [{ weight: "100g", price: 300 }],
   },
   {
     name: "Poha (Avalakki)",
@@ -608,7 +602,7 @@ function PricingDisplay({ pricing }: { pricing: PricingTier[] }) {
       <div
         className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-sm font-bold"
         style={{
-          backgroundColor: "oklch(0.7 0.19 62 / 0.15)",
+          backgroundColor: "oklch(0.58 0.28 38 / 0.15)",
           color: "oklch(0.38 0.1 52)",
         }}
       >
@@ -626,7 +620,7 @@ function PricingDisplay({ pricing }: { pricing: PricingTier[] }) {
           key={tier.weight}
           className="flex flex-col items-center px-2.5 py-1 rounded-lg"
           style={{
-            backgroundColor: "oklch(0.7 0.19 62 / 0.12)",
+            backgroundColor: "oklch(0.58 0.28 38 / 0.12)",
             color: "oklch(0.35 0.1 52)",
           }}
         >
@@ -683,7 +677,7 @@ function ProductCard({
           <Badge
             className="shrink-0 mt-0.5 text-xs"
             style={{
-              backgroundColor: "oklch(0.7 0.19 62 / 0.15)",
+              backgroundColor: "oklch(0.58 0.28 38 / 0.15)",
               color: "oklch(0.38 0.1 52)",
               borderColor: "oklch(0.7 0.19 62 / 0.3)",
             }}
@@ -718,7 +712,7 @@ function ProductCard({
                         key={ing}
                         className="text-xs px-2 py-0.5 rounded-full"
                         style={{
-                          backgroundColor: "oklch(0.88 0.06 72 / 0.6)",
+                          backgroundColor: "oklch(0.92 0.08 72 / 0.7)",
                           color: "oklch(0.3 0.07 48)",
                         }}
                       >
@@ -755,7 +749,7 @@ function ProductCard({
                       >
                         <span
                           className="w-1.5 h-1.5 rounded-full shrink-0"
-                          style={{ backgroundColor: "oklch(0.52 0.14 35)" }}
+                          style={{ backgroundColor: "oklch(0.38 0.2 28)" }}
                         />
                         {u}
                       </li>
@@ -779,7 +773,7 @@ function ProductCard({
           className="w-full flex items-center justify-center gap-1.5 text-sm font-medium py-2 rounded-xl transition-colors"
           style={{
             color: "oklch(0.45 0.12 55)",
-            backgroundColor: "oklch(0.7 0.19 62 / 0.1)",
+            backgroundColor: "oklch(0.58 0.28 38 / 0.1)",
           }}
           aria-expanded={expanded}
         >
@@ -909,7 +903,7 @@ export default function App() {
                 href="tel:8792880292"
                 className="px-4 py-2 rounded-full text-sm font-semibold transition-all"
                 style={{
-                  backgroundColor: "oklch(0.7 0.19 62)",
+                  backgroundColor: "oklch(0.58 0.28 38)",
                   color: "oklch(0.15 0.04 48)",
                 }}
               >
@@ -963,7 +957,7 @@ export default function App() {
                     href="tel:8792880292"
                     className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-base font-semibold"
                     style={{
-                      backgroundColor: "oklch(0.7 0.19 62)",
+                      backgroundColor: "oklch(0.58 0.28 38)",
                       color: "oklch(0.15 0.04 48)",
                     }}
                   >
@@ -996,76 +990,79 @@ export default function App() {
             }}
           />
           <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <div
-                className="relative w-36 h-36 sm:w-44 sm:h-44 mb-6"
-                style={{
-                  filter:
-                    "drop-shadow(0 0 12px rgba(0,0,0,0.95)) drop-shadow(0 0 24px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(0,0,0,0.6))",
-                }}
+            <div className="grid lg:grid-cols-2 gap-10 items-end">
+              {/* Left: text content */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 <div
-                  className="absolute inset-0 rounded-full"
+                  className="relative w-36 h-36 sm:w-44 sm:h-44 mb-6"
                   style={{
-                    background:
-                      "radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 70%)",
-                  }}
-                />
-                <img
-                  src="/assets/generated/PD-Logo-transparent.png"
-                  alt="Pleasing Delicacies Logo"
-                  className="relative w-full h-full object-contain"
-                />
-              </div>
-              <p
-                className="text-sm font-semibold uppercase tracking-[0.2em] mb-3"
-                style={{ color: "oklch(0.85 0.15 70)" }}
-              >
-                Est. 2022
-              </p>
-              <h1
-                className="font-display text-5xl sm:text-7xl font-bold leading-tight mb-4"
-                style={{ color: "oklch(0.97 0.02 75)" }}
-              >
-                Pleasing
-                <br />
-                <span style={{ color: "oklch(0.82 0.18 68)" }}>Delicacies</span>
-              </h1>
-              <p
-                className="text-xl sm:text-2xl font-light tracking-wide mb-8"
-                style={{ color: "oklch(0.9 0.04 75)" }}
-              >
-                Authentic. Traditional. Homemade.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={() => scrollTo("offerings")}
-                  className="px-6 py-3 rounded-full text-base font-semibold transition-transform hover:scale-105"
-                  style={{
-                    backgroundColor: "oklch(0.7 0.19 62)",
-                    color: "oklch(0.15 0.04 48)",
+                    filter:
+                      "drop-shadow(0 0 12px rgba(0,0,0,0.95)) drop-shadow(0 0 24px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(0,0,0,0.6))",
                   }}
                 >
-                  Explore Our Offerings
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollTo("about")}
-                  className="px-6 py-3 rounded-full text-base font-medium border transition-colors"
-                  style={{
-                    borderColor: "oklch(0.9 0.04 75 / 0.5)",
-                    color: "oklch(0.97 0.02 75)",
-                  }}
+                  <div
+                    className="absolute inset-0 rounded-full"
+                    style={{
+                      background:
+                        "radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 70%)",
+                    }}
+                  />
+                  <img
+                    src="/assets/generated/PD-Logo-transparent.png"
+                    alt="Pleasing Delicacies Logo"
+                    className="relative w-full h-full object-contain"
+                  />
+                </div>
+                <p
+                  className="text-sm font-semibold uppercase tracking-[0.2em] mb-3"
+                  style={{ color: "oklch(0.85 0.15 70)" }}
                 >
-                  Our Story
-                </button>
-              </div>
-            </motion.div>
+                  Est. 2022
+                </p>
+                <h1
+                  className="font-display text-5xl sm:text-7xl font-bold leading-tight mb-4"
+                  style={{ color: "oklch(0.97 0.02 75)" }}
+                >
+                  Pleasing
+                  <br />
+                  <span style={{ color: "white" }}>Delicacies</span>
+                </h1>
+                <p
+                  className="text-xl sm:text-2xl font-light tracking-wide mb-8"
+                  style={{ color: "oklch(0.9 0.04 75)" }}
+                >
+                  Authentic. Traditional. Homemade.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={() => scrollTo("offerings")}
+                    className="px-6 py-3 rounded-full text-base font-semibold transition-transform hover:scale-105"
+                    style={{
+                      backgroundColor: "oklch(0.58 0.28 38)",
+                      color: "oklch(0.15 0.04 48)",
+                    }}
+                  >
+                    Explore Our Offerings
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollTo("about")}
+                    className="px-6 py-3 rounded-full text-base font-medium border transition-colors"
+                    style={{
+                      borderColor: "oklch(0.9 0.04 75 / 0.5)",
+                      color: "oklch(0.97 0.02 75)",
+                    }}
+                  >
+                    Our Story
+                  </button>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -1081,7 +1078,7 @@ export default function App() {
               >
                 <p
                   className="text-xs font-semibold uppercase tracking-[0.2em] mb-3"
-                  style={{ color: "oklch(0.52 0.14 35)" }}
+                  style={{ color: "oklch(0.38 0.2 28)" }}
                 >
                   Our Story
                 </p>
@@ -1109,7 +1106,7 @@ export default function App() {
                   href="tel:8792880292"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-transform hover:scale-105"
                   style={{
-                    backgroundColor: "oklch(0.52 0.14 35)",
+                    backgroundColor: "oklch(0.38 0.2 28)",
                     color: "oklch(0.97 0.02 75)",
                   }}
                 >
@@ -1148,12 +1145,12 @@ export default function App() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: i * 0.12 }}
                     className="flex items-start gap-4 p-5 rounded-2xl"
-                    style={{ backgroundColor: "oklch(0.94 0.025 72)" }}
+                    style={{ backgroundColor: "oklch(0.97 0.025 72)" }}
                   >
                     <div
                       className="p-2.5 rounded-xl shrink-0"
                       style={{
-                        backgroundColor: "oklch(0.7 0.19 62 / 0.2)",
+                        backgroundColor: "oklch(0.58 0.28 38 / 0.2)",
                         color: "oklch(0.45 0.12 55)",
                       }}
                     >
@@ -1188,7 +1185,7 @@ export default function App() {
             >
               <p
                 className="text-xs font-semibold uppercase tracking-[0.2em] mb-3"
-                style={{ color: "oklch(0.52 0.14 35)" }}
+                style={{ color: "oklch(0.38 0.2 28)" }}
               >
                 Homemade Goodness
               </p>
@@ -1256,7 +1253,7 @@ export default function App() {
             <Tabs defaultValue="laddus">
               <TabsList
                 className="w-full mb-8 h-12 p-1 rounded-2xl"
-                style={{ backgroundColor: "oklch(0.88 0.04 72)" }}
+                style={{ backgroundColor: "oklch(0.96 0.04 72)" }}
               >
                 <TabsTrigger
                   data-ocid="offerings.tab"
@@ -1334,7 +1331,7 @@ export default function App() {
             >
               <p
                 className="text-xs font-semibold uppercase tracking-[0.2em] mb-3"
-                style={{ color: "oklch(0.52 0.14 35)" }}
+                style={{ color: "oklch(0.38 0.2 28)" }}
               >
                 Happy Customers
               </p>
@@ -1352,7 +1349,7 @@ export default function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: i * 0.1 }}
                   className="relative p-6 rounded-2xl flex flex-col gap-4"
-                  style={{ backgroundColor: "oklch(0.94 0.025 72)" }}
+                  style={{ backgroundColor: "oklch(0.97 0.025 72)" }}
                 >
                   <span
                     className="absolute top-4 right-5 font-display text-6xl leading-none opacity-15"
@@ -1366,7 +1363,7 @@ export default function App() {
                       <Star
                         key={j}
                         className="w-4 h-4 fill-current"
-                        style={{ color: "oklch(0.7 0.19 62)" }}
+                        style={{ color: "oklch(0.58 0.28 38)" }}
                       />
                     ))}
                   </div>
@@ -1377,7 +1374,7 @@ export default function App() {
                     <div
                       className="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-sm"
                       style={{
-                        backgroundColor: "oklch(0.7 0.19 62 / 0.2)",
+                        backgroundColor: "oklch(0.58 0.28 38 / 0.2)",
                         color: "oklch(0.38 0.1 52)",
                       }}
                     >
@@ -1408,7 +1405,7 @@ export default function App() {
             >
               <p
                 className="text-xs font-semibold uppercase tracking-[0.2em] mb-3"
-                style={{ color: "oklch(0.7 0.19 62)" }}
+                style={{ color: "oklch(0.58 0.28 38)" }}
               >
                 Get in Touch
               </p>
@@ -1432,7 +1429,7 @@ export default function App() {
                   href="tel:8792880292"
                   className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg transition-transform hover:scale-105"
                   style={{
-                    backgroundColor: "oklch(0.7 0.19 62)",
+                    backgroundColor: "oklch(0.58 0.28 38)",
                     color: "oklch(0.15 0.04 48)",
                   }}
                 >
@@ -1474,7 +1471,7 @@ export default function App() {
               >
                 <Globe
                   className="w-4 h-4"
-                  style={{ color: "oklch(0.7 0.19 62)" }}
+                  style={{ color: "oklch(0.58 0.28 38)" }}
                 />
                 <a
                   href="https://pleasing-delicacies.mini.site"

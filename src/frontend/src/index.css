@@ -18,24 +18,24 @@
 
 @layer base {
   :root {
-    /* Vibrant warm saffron/turmeric background */
-    --background: 0.91 0.1 72;
+    /* Vibrant warm cream background */
+    --background: 0.96 0.04 75;
     --foreground: 0.15 0.06 35;
 
-    /* Cards: slightly lighter saffron cream */
-    --card: 0.95 0.07 70;
+    /* Cards: bright warm cream */
+    --card: 0.98 0.025 72;
     --card-foreground: 0.15 0.06 35;
 
     /* Popover */
-    --popover: 0.95 0.07 70;
+    --popover: 0.98 0.025 72;
     --popover-foreground: 0.15 0.06 35;
 
-    /* Primary: deep vivid saffron-orange */
-    --primary: 0.62 0.24 42;
-    --primary-foreground: 0.98 0.01 75;
+    /* Primary: bold deep saffron/orange */
+    --primary: 0.58 0.28 38;
+    --primary-foreground: 0.99 0.01 75;
 
-    /* Secondary: rich terracotta/rust */
-    --secondary: 0.88 0.09 68;
+    /* Secondary: rich warm golden */
+    --secondary: 0.85 0.12 65;
     --secondary-foreground: 0.18 0.07 40;
 
     /* Muted warm golden */
@@ -43,7 +43,7 @@
     --muted-foreground: 0.4 0.07 48;
 
     /* Accent: vibrant deep amber */
-    --accent: 0.82 0.14 68;
+    --accent: 0.75 0.18 55;
     --accent-foreground: 0.15 0.06 35;
 
     /* Destructive */
@@ -51,16 +51,16 @@
     --destructive-foreground: 0.98 0.005 75;
 
     /* Borders */
-    --border: 0.78 0.1 58;
+    --border: 0.72 0.14 50;
     --input: 0.82 0.08 65;
-    --ring: 0.62 0.24 42;
+    --ring: 0.58 0.28 38;
 
     /* Radius */
     --radius: 0.75rem;
 
     /* Charts */
-    --chart-1: 0.62 0.24 42;
-    --chart-2: 0.55 0.18 25;
+    --chart-1: 0.58 0.28 38;
+    --chart-2: 0.45 0.22 28;
     --chart-3: 0.65 0.16 80;
     --chart-4: 0.55 0.2 150;
     --chart-5: 0.5 0.18 300;
@@ -68,12 +68,12 @@
     /* Sidebar */
     --sidebar: 0.87 0.1 68;
     --sidebar-foreground: 0.15 0.06 35;
-    --sidebar-primary: 0.62 0.24 42;
-    --sidebar-primary-foreground: 0.98 0.01 75;
-    --sidebar-accent: 0.82 0.14 68;
+    --sidebar-primary: 0.58 0.28 38;
+    --sidebar-primary-foreground: 0.99 0.01 75;
+    --sidebar-accent: 0.75 0.18 55;
     --sidebar-accent-foreground: 0.15 0.06 35;
-    --sidebar-border: 0.78 0.1 58;
-    --sidebar-ring: 0.62 0.24 42;
+    --sidebar-border: 0.72 0.14 50;
+    --sidebar-ring: 0.58 0.28 38;
   }
 }
 
@@ -103,8 +103,8 @@
   .hero-overlay {
     background: linear-gradient(
       to bottom,
-      oklch(0.1 0.08 30 / 0.55) 0%,
-      oklch(0.08 0.1 25 / 0.82) 100%
+      oklch(0.12 0.12 28 / 0.6) 0%,
+      oklch(0.1 0.15 25 / 0.88) 100%
     );
   }
 
@@ -118,23 +118,23 @@
   }
 
   .text-saffron {
-    color: oklch(0.62 0.24 42);
+    color: oklch(0.58 0.28 38);
   }
 
   .bg-saffron {
-    background-color: oklch(0.62 0.24 42);
+    background-color: oklch(0.58 0.28 38);
   }
 
   .bg-terracotta {
-    background-color: oklch(0.48 0.18 30);
+    background-color: oklch(0.45 0.22 28);
   }
 
   .text-terracotta {
-    color: oklch(0.48 0.18 30);
+    color: oklch(0.45 0.22 28);
   }
 
   .bg-spice-dark {
-    background-color: oklch(0.18 0.07 30);
+    background-color: oklch(0.25 0.1 30);
   }
 
   .border-warm {
@@ -147,32 +147,32 @@
      accents — rich saffron base with deep crimson/maroon pattern strokes.
   ─────────────────────────────────────────────────────────────────────────── */
   .traditional-bg {
-    background-color: oklch(0.91 0.1 72);
+    background-color: oklch(0.96 0.04 75);
     background-image: linear-gradient(
         135deg,
-        oklch(0.88 0.13 68 / 0.5) 0%,
-        oklch(0.93 0.08 78 / 0.5) 100%
+        oklch(0.88 0.2 58 / 0.25) 0%,
+        oklch(0.94 0.12 72 / 0.25) 100%
       ),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z' fill='none' stroke='%23991b1b' stroke-width='2' opacity='0.65'/%3E%3Cpath d='M40 16 L64 40 L40 64 L16 40 Z' fill='none' stroke='%23b91c1c' stroke-width='1.5' opacity='0.55'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%23991b1b' opacity='0.6'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%23991b1b' stroke-width='1.5' opacity='0.55'/%3E%3Cline x1='40' y1='33' x2='40' y2='47' stroke='%23991b1b' stroke-width='1.5' opacity='0.5'/%3E%3Cline x1='33' y1='40' x2='47' y2='40' stroke='%23991b1b' stroke-width='1.5' opacity='0.5'/%3E%3Cline x1='35' y1='35' x2='45' y2='45' stroke='%23991b1b' stroke-width='1' opacity='0.45'/%3E%3Cline x1='45' y1='35' x2='35' y2='45' stroke='%23991b1b' stroke-width='1' opacity='0.45'/%3E%3Ccircle cx='4' cy='40' r='3' fill='%23991b1b' opacity='0.58'/%3E%3Ccircle cx='76' cy='40' r='3' fill='%23991b1b' opacity='0.58'/%3E%3Ccircle cx='40' cy='4' r='3' fill='%23991b1b' opacity='0.58'/%3E%3Ccircle cx='40' cy='76' r='3' fill='%23991b1b' opacity='0.58'/%3E%3C/svg%3E");
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z' fill='none' stroke='%23c2410c' stroke-width='2' opacity='0.65'/%3E%3Cpath d='M40 16 L64 40 L40 64 L16 40 Z' fill='none' stroke='%23dc2626' stroke-width='1.5' opacity='0.55'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%23c2410c' opacity='0.6'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%23c2410c' stroke-width='1.5' opacity='0.55'/%3E%3Cline x1='40' y1='33' x2='40' y2='47' stroke='%23c2410c' stroke-width='1.5' opacity='0.5'/%3E%3Cline x1='33' y1='40' x2='47' y2='40' stroke='%23c2410c' stroke-width='1.5' opacity='0.5'/%3E%3Cline x1='35' y1='35' x2='45' y2='45' stroke='%23c2410c' stroke-width='1' opacity='0.45'/%3E%3Cline x1='45' y1='35' x2='35' y2='45' stroke='%23c2410c' stroke-width='1' opacity='0.45'/%3E%3Ccircle cx='4' cy='40' r='3' fill='%23c2410c' opacity='0.58'/%3E%3Ccircle cx='76' cy='40' r='3' fill='%23c2410c' opacity='0.58'/%3E%3Ccircle cx='40' cy='4' r='3' fill='%23c2410c' opacity='0.58'/%3E%3Ccircle cx='40' cy='76' r='3' fill='%23c2410c' opacity='0.58'/%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: auto, 80px 80px;
   }
 
   /* Dark variant for contact / footer sections */
   .traditional-bg-dark {
-    background-color: oklch(0.18 0.1 30);
+    background-color: oklch(0.2 0.1 28);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z' fill='none' stroke='%23fbbf24' stroke-width='2' opacity='0.55'/%3E%3Cpath d='M40 16 L64 40 L40 64 L16 40 Z' fill='none' stroke='%23f59e0b' stroke-width='1.5' opacity='0.45'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%23fbbf24' opacity='0.5'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%23fbbf24' stroke-width='1.5' opacity='0.45'/%3E%3Cline x1='40' y1='33' x2='40' y2='47' stroke='%23fbbf24' stroke-width='1.5' opacity='0.4'/%3E%3Cline x1='33' y1='40' x2='47' y2='40' stroke='%23fbbf24' stroke-width='1.5' opacity='0.4'/%3E%3Cline x1='35' y1='35' x2='45' y2='45' stroke='%23fbbf24' stroke-width='1' opacity='0.35'/%3E%3Cline x1='45' y1='35' x2='35' y2='45' stroke='%23fbbf24' stroke-width='1' opacity='0.35'/%3E%3Ccircle cx='4' cy='40' r='3' fill='%23fbbf24' opacity='0.45'/%3E%3Ccircle cx='76' cy='40' r='3' fill='%23fbbf24' opacity='0.45'/%3E%3Ccircle cx='40' cy='4' r='3' fill='%23fbbf24' opacity='0.45'/%3E%3Ccircle cx='40' cy='76' r='3' fill='%23fbbf24' opacity='0.45'/%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: 80px 80px;
   }
 
-  /* Muted/alternating section variant — warm deep peach/rose */
+  /* Muted/alternating section variant */
   .traditional-bg-muted {
-    background-color: oklch(0.87 0.1 58);
+    background-color: oklch(0.92 0.08 58);
     background-image: linear-gradient(
         135deg,
-        oklch(0.85 0.12 52 / 0.45) 0%,
-        oklch(0.9 0.09 72 / 0.45) 100%
+        oklch(0.85 0.18 48 / 0.3) 0%,
+        oklch(0.92 0.12 72 / 0.3) 100%
       ),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z' fill='none' stroke='%23b91c1c' stroke-width='2' opacity='0.55'/%3E%3Cpath d='M40 16 L64 40 L40 64 L16 40 Z' fill='none' stroke='%23c2410c' stroke-width='1.5' opacity='0.48'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%23b91c1c' opacity='0.5'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%23b91c1c' stroke-width='1.5' opacity='0.45'/%3E%3Cline x1='40' y1='33' x2='40' y2='47' stroke='%23b91c1c' stroke-width='1.5' opacity='0.42'/%3E%3Cline x1='33' y1='40' x2='47' y2='40' stroke='%23b91c1c' stroke-width='1.5' opacity='0.42'/%3E%3Cline x1='35' y1='35' x2='45' y2='45' stroke='%23b91c1c' stroke-width='1' opacity='0.38'/%3E%3Cline x1='45' y1='35' x2='35' y2='45' stroke='%23b91c1c' stroke-width='1' opacity='0.38'/%3E%3Ccircle cx='4' cy='40' r='3' fill='%23b91c1c' opacity='0.48'/%3E%3Ccircle cx='76' cy='40' r='3' fill='%23b91c1c' opacity='0.48'/%3E%3Ccircle cx='40' cy='4' r='3' fill='%23b91c1c' opacity='0.48'/%3E%3Ccircle cx='40' cy='76' r='3' fill='%23b91c1c' opacity='0.48'/%3E%3C/svg%3E");
     background-repeat: repeat;
