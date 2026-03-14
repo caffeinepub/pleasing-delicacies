@@ -18,62 +18,62 @@
 
 @layer base {
   :root {
-    /* Warm cream background */
-    --background: 0.97 0.012 75;
-    --foreground: 0.22 0.04 48;
+    /* Vibrant warm saffron/turmeric background */
+    --background: 0.91 0.1 72;
+    --foreground: 0.15 0.06 35;
 
-    /* Cards */
-    --card: 0.99 0.008 75;
-    --card-foreground: 0.22 0.04 48;
+    /* Cards: slightly lighter saffron cream */
+    --card: 0.95 0.07 70;
+    --card-foreground: 0.15 0.06 35;
 
     /* Popover */
-    --popover: 0.99 0.008 75;
-    --popover-foreground: 0.22 0.04 48;
+    --popover: 0.95 0.07 70;
+    --popover-foreground: 0.15 0.06 35;
 
-    /* Primary: saffron/turmeric golden */
-    --primary: 0.7 0.19 62;
-    --primary-foreground: 0.15 0.04 48;
+    /* Primary: deep vivid saffron-orange */
+    --primary: 0.62 0.24 42;
+    --primary-foreground: 0.98 0.01 75;
 
-    /* Secondary: terracotta/rust */
-    --secondary: 0.93 0.03 72;
-    --secondary-foreground: 0.3 0.07 48;
+    /* Secondary: rich terracotta/rust */
+    --secondary: 0.88 0.09 68;
+    --secondary-foreground: 0.18 0.07 40;
 
-    /* Muted warm cream */
-    --muted: 0.94 0.018 74;
-    --muted-foreground: 0.5 0.04 60;
+    /* Muted warm golden */
+    --muted: 0.87 0.08 70;
+    --muted-foreground: 0.4 0.07 48;
 
-    /* Accent: warm amber */
-    --accent: 0.88 0.08 72;
-    --accent-foreground: 0.25 0.05 50;
+    /* Accent: vibrant deep amber */
+    --accent: 0.82 0.14 68;
+    --accent-foreground: 0.15 0.06 35;
 
     /* Destructive */
-    --destructive: 0.55 0.18 25;
+    --destructive: 0.52 0.22 25;
     --destructive-foreground: 0.98 0.005 75;
 
     /* Borders */
-    --border: 0.88 0.03 72;
-    --input: 0.88 0.03 72;
-    --ring: 0.7 0.19 62;
+    --border: 0.78 0.1 58;
+    --input: 0.82 0.08 65;
+    --ring: 0.62 0.24 42;
 
     /* Radius */
     --radius: 0.75rem;
 
     /* Charts */
-    --chart-1: 0.7 0.19 62;
-    --chart-2: 0.6 0.15 35;
-    --chart-3: 0.55 0.13 150;
-    --chart-4: 0.65 0.16 80;
-    --chart-5: 0.5 0.12 270;
+    --chart-1: 0.62 0.24 42;
+    --chart-2: 0.55 0.18 25;
+    --chart-3: 0.65 0.16 80;
+    --chart-4: 0.55 0.2 150;
+    --chart-5: 0.5 0.18 300;
 
     /* Sidebar */
-    --sidebar: 0.95 0.015 75;
-    --sidebar-foreground: 0.22 0.04 48;
-    --sidebar-primary: 0.7 0.19 62;
-    --sidebar-primary-foreground: 0.15 0.04 48;
-    --sidebar-accent: 0.88 0.08 72;
-    --sidebar-accent-foreground: 0.25 0.05 50;
-    --sidebar-border: 0.88 0.03 72;
-    --sidebar-ring: 0.7 0.19 62;
+    --sidebar: 0.87 0.1 68;
+    --sidebar-foreground: 0.15 0.06 35;
+    --sidebar-primary: 0.62 0.24 42;
+    --sidebar-primary-foreground: 0.98 0.01 75;
+    --sidebar-accent: 0.82 0.14 68;
+    --sidebar-accent-foreground: 0.15 0.06 35;
+    --sidebar-border: 0.78 0.1 58;
+    --sidebar-ring: 0.62 0.24 42;
   }
 }
 
@@ -103,8 +103,8 @@
   .hero-overlay {
     background: linear-gradient(
       to bottom,
-      oklch(0.12 0.06 48 / 0.5) 0%,
-      oklch(0.1 0.08 55 / 0.75) 100%
+      oklch(0.1 0.08 30 / 0.55) 0%,
+      oklch(0.08 0.1 25 / 0.82) 100%
     );
   }
 
@@ -118,26 +118,64 @@
   }
 
   .text-saffron {
-    color: oklch(0.7 0.19 62);
+    color: oklch(0.62 0.24 42);
   }
 
   .bg-saffron {
-    background-color: oklch(0.7 0.19 62);
+    background-color: oklch(0.62 0.24 42);
   }
 
   .bg-terracotta {
-    background-color: oklch(0.52 0.14 35);
+    background-color: oklch(0.48 0.18 30);
   }
 
   .text-terracotta {
-    color: oklch(0.52 0.14 35);
+    color: oklch(0.48 0.18 30);
   }
 
   .bg-spice-dark {
-    background-color: oklch(0.2 0.05 48);
+    background-color: oklch(0.18 0.07 30);
   }
 
   .border-warm {
-    border-color: oklch(0.82 0.07 70);
+    border-color: oklch(0.72 0.14 55);
+  }
+
+  /* ── Traditional Indian Background Pattern ──────────────────────────────────
+     A bold repeating geometric motif inspired by traditional Indian block
+     printing and Rangoli art. Uses a diamond lattice with small floral
+     accents — rich saffron base with deep crimson/maroon pattern strokes.
+  ─────────────────────────────────────────────────────────────────────────── */
+  .traditional-bg {
+    background-color: oklch(0.91 0.1 72);
+    background-image: linear-gradient(
+        135deg,
+        oklch(0.88 0.13 68 / 0.5) 0%,
+        oklch(0.93 0.08 78 / 0.5) 100%
+      ),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z' fill='none' stroke='%23991b1b' stroke-width='2' opacity='0.65'/%3E%3Cpath d='M40 16 L64 40 L40 64 L16 40 Z' fill='none' stroke='%23b91c1c' stroke-width='1.5' opacity='0.55'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%23991b1b' opacity='0.6'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%23991b1b' stroke-width='1.5' opacity='0.55'/%3E%3Cline x1='40' y1='33' x2='40' y2='47' stroke='%23991b1b' stroke-width='1.5' opacity='0.5'/%3E%3Cline x1='33' y1='40' x2='47' y2='40' stroke='%23991b1b' stroke-width='1.5' opacity='0.5'/%3E%3Cline x1='35' y1='35' x2='45' y2='45' stroke='%23991b1b' stroke-width='1' opacity='0.45'/%3E%3Cline x1='45' y1='35' x2='35' y2='45' stroke='%23991b1b' stroke-width='1' opacity='0.45'/%3E%3Ccircle cx='4' cy='40' r='3' fill='%23991b1b' opacity='0.58'/%3E%3Ccircle cx='76' cy='40' r='3' fill='%23991b1b' opacity='0.58'/%3E%3Ccircle cx='40' cy='4' r='3' fill='%23991b1b' opacity='0.58'/%3E%3Ccircle cx='40' cy='76' r='3' fill='%23991b1b' opacity='0.58'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: auto, 80px 80px;
+  }
+
+  /* Dark variant for contact / footer sections */
+  .traditional-bg-dark {
+    background-color: oklch(0.18 0.1 30);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z' fill='none' stroke='%23fbbf24' stroke-width='2' opacity='0.55'/%3E%3Cpath d='M40 16 L64 40 L40 64 L16 40 Z' fill='none' stroke='%23f59e0b' stroke-width='1.5' opacity='0.45'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%23fbbf24' opacity='0.5'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%23fbbf24' stroke-width='1.5' opacity='0.45'/%3E%3Cline x1='40' y1='33' x2='40' y2='47' stroke='%23fbbf24' stroke-width='1.5' opacity='0.4'/%3E%3Cline x1='33' y1='40' x2='47' y2='40' stroke='%23fbbf24' stroke-width='1.5' opacity='0.4'/%3E%3Cline x1='35' y1='35' x2='45' y2='45' stroke='%23fbbf24' stroke-width='1' opacity='0.35'/%3E%3Cline x1='45' y1='35' x2='35' y2='45' stroke='%23fbbf24' stroke-width='1' opacity='0.35'/%3E%3Ccircle cx='4' cy='40' r='3' fill='%23fbbf24' opacity='0.45'/%3E%3Ccircle cx='76' cy='40' r='3' fill='%23fbbf24' opacity='0.45'/%3E%3Ccircle cx='40' cy='4' r='3' fill='%23fbbf24' opacity='0.45'/%3E%3Ccircle cx='40' cy='76' r='3' fill='%23fbbf24' opacity='0.45'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 80px 80px;
+  }
+
+  /* Muted/alternating section variant — warm deep peach/rose */
+  .traditional-bg-muted {
+    background-color: oklch(0.87 0.1 58);
+    background-image: linear-gradient(
+        135deg,
+        oklch(0.85 0.12 52 / 0.45) 0%,
+        oklch(0.9 0.09 72 / 0.45) 100%
+      ),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z' fill='none' stroke='%23b91c1c' stroke-width='2' opacity='0.55'/%3E%3Cpath d='M40 16 L64 40 L40 64 L16 40 Z' fill='none' stroke='%23c2410c' stroke-width='1.5' opacity='0.48'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%23b91c1c' opacity='0.5'/%3E%3Ccircle cx='40' cy='40' r='7' fill='none' stroke='%23b91c1c' stroke-width='1.5' opacity='0.45'/%3E%3Cline x1='40' y1='33' x2='40' y2='47' stroke='%23b91c1c' stroke-width='1.5' opacity='0.42'/%3E%3Cline x1='33' y1='40' x2='47' y2='40' stroke='%23b91c1c' stroke-width='1.5' opacity='0.42'/%3E%3Cline x1='35' y1='35' x2='45' y2='45' stroke='%23b91c1c' stroke-width='1' opacity='0.38'/%3E%3Cline x1='45' y1='35' x2='35' y2='45' stroke='%23b91c1c' stroke-width='1' opacity='0.38'/%3E%3Ccircle cx='4' cy='40' r='3' fill='%23b91c1c' opacity='0.48'/%3E%3Ccircle cx='76' cy='40' r='3' fill='%23b91c1c' opacity='0.48'/%3E%3Ccircle cx='40' cy='4' r='3' fill='%23b91c1c' opacity='0.48'/%3E%3Ccircle cx='40' cy='76' r='3' fill='%23b91c1c' opacity='0.48'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: auto, 80px 80px;
   }
 }

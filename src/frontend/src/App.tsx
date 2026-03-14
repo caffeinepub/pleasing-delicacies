@@ -82,7 +82,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Wheat & Nuts Laddu",
-    image: "/assets/uploads/Wheat-Nuts-1.png",
+    image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-2.46.00-PM-1.jpeg",
     description:
       "Made from whole wheat flour, mixed nuts, ghee, and jaggery. Flour roasted in ghee until golden brown with a rich nutty aroma.",
     ingredients: [
@@ -147,7 +147,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Flax Seeds & Nuts Laddu",
-    image: "/assets/uploads/Flax-seed-Nuts-1.png",
+    image: "/assets/uploads/image-3-1.png",
     description:
       "Made from roasted flax seeds, jaggery, ghee, dry fruits and nuts. Rich in omega-3 fatty acids and antioxidants.",
     ingredients: [
@@ -179,7 +179,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Ragi & Nuts Laddu",
-    image: "/assets/uploads/Ragi-Nuts-1-1.png",
+    image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-2.31.32-PM-1--1.jpeg",
     description:
       "Made from ragi (finger millet) flour, mixed nuts, ghee, and jaggery. Ragi is rich in calcium, iron, and dietary fiber.",
     ingredients: [
@@ -211,7 +211,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Urad Dal Laddu",
-    image: "/assets/generated/product-urad-dal-laddu.dim_400x300.jpg",
+    image: "/assets/uploads/image-6-1.png",
     description:
       "Made from roasted urad dal (black gram lentils), ghee, and jaggery. Dal roasted until golden and ground to fine powder.",
     ingredients: [
@@ -243,7 +243,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Til Laddu",
-    image: "/assets/generated/product-til-laddu.dim_400x300.jpg",
+    image: "/assets/uploads/image-8-1.png",
     description:
       "Made from roasted sesame seeds (til) and jaggery. Simple, crunchy, and rich in calcium, magnesium, iron, and healthy fats.",
     ingredients: ["Sesame seeds (til)", "Jaggery", "Cardamom"],
@@ -433,6 +433,7 @@ const FALLBACK_SAVOURIES: ProductData[] = [
       "Great movie-time munch",
       "Guilt-free alternative to chips",
     ],
+    image: "/assets/uploads/image-1-1.png",
     category: ProductCategory.savoury,
     shelfLife: "3-4 weeks in an airtight container",
     pricing: [
@@ -456,6 +457,7 @@ const FALLBACK_SAVOURIES: ProductData[] = [
       "Healthy munch for kids",
       "Post-workout snack",
     ],
+    image: "/assets/uploads/image-2-1.png",
     category: ProductCategory.savoury,
     shelfLife: "3-4 weeks in an airtight container",
     pricing: [
@@ -489,6 +491,7 @@ const FALLBACK_SAVOURIES: ProductData[] = [
       "Afternoon tea snack",
       "Travel-friendly munch",
     ],
+    image: "/assets/uploads/image-4-1.png",
     category: ProductCategory.savoury,
     shelfLife: "2-3 weeks in an airtight container",
     pricing: [
@@ -524,6 +527,7 @@ const FALLBACK_SAVOURIES: ProductData[] = [
     ],
     category: ProductCategory.savoury,
     shelfLife: "2-3 weeks in an airtight container",
+    image: "/assets/uploads/image-5-1.png",
     pricing: [
       { weight: "200g", price: 120 },
       { weight: "400g", price: 220 },
@@ -533,21 +537,63 @@ const FALLBACK_SAVOURIES: ProductData[] = [
 
 const TESTIMONIALS = [
   {
-    name: "Priya Sharma",
-    location: "Bengaluru",
-    text: "I ordered the Gond & Nuts Laddus for my postpartum recovery and they were absolutely wonderful! So nourishing and made with so much care. The taste brought back memories of my grandmother's kitchen.",
+    name: "Rashmi",
+    location: "Customer",
+    text: "I recently purchased Gond Ladoo and Ragi Ladoo. The taste was very authentic and homemade. The sweetness was perfectly balanced and not artificial. The quality and freshness were clearly visible. A healthy and tasty option for snacks. Highly recommended.",
+    rating: 5,
+  },
+  {
+    name: "Roopa Arvind",
+    location: "Customer",
+    text: "Pleasing Delicacies truly lives up to its name. The sweets and snacks are fresh, authentic, and taste just like traditional homemade food. I especially appreciate that they use no preservatives, no added colours, and no oil, which makes everything feel healthy and safe for the family. The Sugar-Free Laddus made with pure ghee are absolutely delicious and perfect for health-conscious people. The variety is impressive — from Gond & Nuts Laddu to Ragi & Nuts (Millet Special) and Til Laddu, each one has a rich, natural flavour. The chutney powders and snacks are equally tasty and well-balanced in flavour. You can really feel the homemade touch in every item. Highly recommended for festive orders and gifting. A perfect place for authentic, traditional delicacies!",
     rating: 5,
   },
   {
     name: "Meena Krishnamurthy",
-    location: "Mysore",
+    location: "Customer",
     text: "The Moringa Chutney Powder is a game-changer for our breakfast! My kids love it on dosas and I love that it's packed with nutrition. Shailaja aunty's recipes are truly authentic.",
     rating: 5,
   },
   {
-    name: "Ananya Reddy",
-    location: "Hyderabad",
-    text: "Tried the Dry Fruits Laddu for my diabetic mother — no sugar, all natural sweetness. She loved it and I felt so good knowing she could enjoy sweets guilt-free. Highly recommended!",
+    name: "Chandrakant Sugoor",
+    location: "Bangalore",
+    text: "Pleasing Delicacies shop, which has newly come up is in the vicinity of Sambram Engg. College area on Hesaragatta road, Bangalore. I bought some chutney powders recently namely, of Curry leaves, Ground nut, Flax seeds and Drumstick leaves. I could not believe that they all tasted like home made authentic healthy chutney powders. I found them very nice, tasty and perfect combinations to Rice, wheat Chapati, Jower roti, Idli and Dosas. We really enjoyed all of them. I strongly recommend this shop for these products and am sure you will not be disappointed.",
+    rating: 5,
+  },
+  {
+    name: "Suvarna Bharani",
+    location: "Customer",
+    text: "This shop has varieties of ladoos made with zero sugar. All are so tasty that we can keep eating without guilt of gaining weight. They are made with ghee, jaggery and dates. My favourite was dry fruit ladoo without sugar and jaggery. Must give a try for those who have cravings for sweets.",
+    rating: 5,
+  },
+  {
+    name: "Hemanth",
+    location: "Customer",
+    text: "Great laddoos very tastyyy!!! Always want more laddoos after eating one.",
+    rating: 5,
+  },
+  {
+    name: "Shreelekha",
+    location: "Customer",
+    text: "Amazing sunnaundalu... Don't miss this. Tasty dry fruits laddu.",
+    rating: 5,
+  },
+  {
+    name: "Radhika",
+    location: "Customer",
+    text: "Wow the laddus are so delicious. Loved it. It was a great experience.",
+    rating: 5,
+  },
+  {
+    name: "Sai Kiran",
+    location: "Customer",
+    text: "Delicious laddus. Everyone loved them.",
+    rating: 5,
+  },
+  {
+    name: "Ajay Kumar",
+    location: "Customer",
+    text: "Tasty Healthy Hygienic.",
     rating: 5,
   },
 ];
@@ -818,7 +864,7 @@ export default function App() {
   const year = new Date().getFullYear();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen traditional-bg">
       {/* NAV */}
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
@@ -1024,7 +1070,7 @@ export default function App() {
         </section>
 
         {/* ABOUT */}
-        <section id="about" className="section-padding bg-background">
+        <section id="about" className="section-padding traditional-bg">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <motion.div
@@ -1131,8 +1177,7 @@ export default function App() {
         {/* OFFERINGS */}
         <section
           id="offerings"
-          className="section-padding"
-          style={{ backgroundColor: "oklch(0.95 0.018 74)" }}
+          className="section-padding traditional-bg-muted"
         >
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -1276,7 +1321,10 @@ export default function App() {
         </section>
 
         {/* TESTIMONIALS */}
-        <section id="testimonials" className="section-padding bg-background">
+        <section
+          id="testimonials"
+          className="section-padding traditional-bg-muted"
+        >
           <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1351,14 +1399,7 @@ export default function App() {
         </section>
 
         {/* CONTACT */}
-        <section
-          id="contact"
-          className="section-padding"
-          style={{
-            background:
-              "linear-gradient(135deg, oklch(0.25 0.07 48) 0%, oklch(0.2 0.06 52) 100%)",
-          }}
-        >
+        <section id="contact" className="section-padding traditional-bg-dark">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1451,10 +1492,7 @@ export default function App() {
       </main>
 
       {/* FOOTER */}
-      <footer
-        className="py-8 px-4 text-center border-t border-border"
-        style={{ backgroundColor: "oklch(0.19 0.05 48)" }}
-      >
+      <footer className="py-8 px-4 text-center border-t border-border traditional-bg-dark">
         <p
           className="font-display text-base font-semibold mb-1"
           style={{ color: "oklch(0.82 0.1 68)" }}
