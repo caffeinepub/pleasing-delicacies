@@ -8,6 +8,7 @@ import {
   Instagram,
   Leaf,
   Menu,
+  MessageCircle,
   Phone,
   ShieldCheck,
   Sparkles,
@@ -16,7 +17,12 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { Category } from "./backend";
+
+enum ProductCategory {
+  laddu = "laddu",
+  chutneyPowder = "chutneyPowder",
+  savoury = "savoury",
+}
 import { useGetAllProducts } from "./hooks/useQueries";
 
 // ─────────────────────────────────────────────
@@ -35,7 +41,7 @@ interface ProductData {
   ingredients: string[];
   nutritionalBenefits: string[];
   usageSuggestions: string[];
-  category: Category;
+  category: ProductCategory;
   shelfLife: string;
   pricing: PricingTier[];
 }
@@ -43,7 +49,7 @@ interface ProductData {
 const FALLBACK_LADDUS: ProductData[] = [
   {
     name: "Gond & Nuts Laddu",
-    image: "/assets/generated/product-gond-nuts-laddu.dim_400x300.jpg",
+    image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-1.18.20-PM-1.jpeg",
     description:
       "Traditional sweet made from edible gum (gond), mixed nuts, ghee, and jaggery. Roasted gond adds a distinct crispy texture.",
     ingredients: [
@@ -66,7 +72,7 @@ const FALLBACK_LADDUS: ProductData[] = [
       "Ideal for postpartum recovery",
       "Daily health supplement",
     ],
-    category: Category.laddu,
+    category: ProductCategory.laddu,
     shelfLife: "3-4 weeks in an airtight container",
     pricing: [
       { weight: "250g", price: 350 },
@@ -76,7 +82,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Wheat & Nuts Laddu",
-    image: "/assets/generated/product-wheat-nuts-laddu.dim_400x300.jpg",
+    image: "/assets/uploads/Wheat-Nuts-1.png",
     description:
       "Made from whole wheat flour, mixed nuts, ghee, and jaggery. Flour roasted in ghee until golden brown with a rich nutty aroma.",
     ingredients: [
@@ -98,7 +104,7 @@ const FALLBACK_LADDUS: ProductData[] = [
       "Festive treat",
       "Nutritious snack",
     ],
-    category: Category.laddu,
+    category: ProductCategory.laddu,
     shelfLife: "3-4 weeks in an airtight container",
     pricing: [
       { weight: "250g", price: 360 },
@@ -108,7 +114,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Dry Fruits Laddu",
-    image: "/assets/generated/product-dry-fruits-laddu.dim_400x300.jpg",
+    image: "/assets/uploads/Dry-Fruits-Laddu-1.jpeg",
     description:
       "No Sugar or Jaggery — sweetness purely from dates and raisins. Contains almonds, cashews, pistachios, and walnuts.",
     ingredients: [
@@ -131,7 +137,7 @@ const FALLBACK_LADDUS: ProductData[] = [
       "Diabetic-friendly option",
       "Great energy snack",
     ],
-    category: Category.laddu,
+    category: ProductCategory.laddu,
     shelfLife: "2-3 weeks in an airtight container",
     pricing: [
       { weight: "250g", price: 460 },
@@ -141,7 +147,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Flax Seeds & Nuts Laddu",
-    image: "/assets/generated/product-flaxseeds-nuts-laddu.dim_400x300.jpg",
+    image: "/assets/uploads/Flax-seed-Nuts-1.png",
     description:
       "Made from roasted flax seeds, jaggery, ghee, dry fruits and nuts. Rich in omega-3 fatty acids and antioxidants.",
     ingredients: [
@@ -163,7 +169,7 @@ const FALLBACK_LADDUS: ProductData[] = [
       "Great for digestion",
       "Heart-healthy treat",
     ],
-    category: Category.laddu,
+    category: ProductCategory.laddu,
     shelfLife: "3-4 weeks in an airtight container",
     pricing: [
       { weight: "250g", price: 350 },
@@ -173,7 +179,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Ragi & Nuts Laddu",
-    image: "/assets/generated/product-ragi-nuts-laddu.dim_400x300.jpg",
+    image: "/assets/uploads/Ragi-Nuts-1-1.png",
     description:
       "Made from ragi (finger millet) flour, mixed nuts, ghee, and jaggery. Ragi is rich in calcium, iron, and dietary fiber.",
     ingredients: [
@@ -195,7 +201,7 @@ const FALLBACK_LADDUS: ProductData[] = [
       "Great for growing children",
       "Supports bone strength",
     ],
-    category: Category.laddu,
+    category: ProductCategory.laddu,
     shelfLife: "3-4 weeks in an airtight container",
     pricing: [
       { weight: "250g", price: 350 },
@@ -227,7 +233,7 @@ const FALLBACK_LADDUS: ProductData[] = [
       "Post-workout snack",
       "Nourishing energy booster",
     ],
-    category: Category.laddu,
+    category: ProductCategory.laddu,
     shelfLife: "3-4 weeks in an airtight container",
     pricing: [
       { weight: "250g", price: 300 },
@@ -252,7 +258,7 @@ const FALLBACK_LADDUS: ProductData[] = [
       "Winter energy booster",
       "Daily healthy treat",
     ],
-    category: Category.laddu,
+    category: ProductCategory.laddu,
     shelfLife: "4-6 weeks in an airtight container",
     pricing: [
       { weight: "250g", price: 225 },
@@ -287,7 +293,7 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
       "Accompaniment for dosas & idlis",
       "Add to chapatis or soups",
     ],
-    category: Category.chutneyPowder,
+    category: ProductCategory.chutneyPowder,
     shelfLife: "Several months in airtight container",
     pricing: [{ weight: "100g", price: 95 }],
   },
@@ -315,7 +321,7 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
       "Pair with idlis, dosas, parathas",
       "Blend into yogurt for a dip",
     ],
-    category: Category.chutneyPowder,
+    category: ProductCategory.chutneyPowder,
     shelfLife: "Several months in airtight container",
     pricing: [{ weight: "100g", price: 95 }],
   },
@@ -343,7 +349,7 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
       "Pair with idlis or dosas",
       "Mix into yogurt for raita",
     ],
-    category: Category.chutneyPowder,
+    category: ProductCategory.chutneyPowder,
     shelfLife: "Several months in airtight container",
     pricing: [{ weight: "100g", price: 95 }],
   },
@@ -371,7 +377,7 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
       "Side for idlis or dosas",
       "Add to salads or soups",
     ],
-    category: Category.chutneyPowder,
+    category: ProductCategory.chutneyPowder,
     shelfLife: "Several months in airtight container",
     pricing: [{ weight: "100g", price: 95 }],
   },
@@ -399,9 +405,129 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
       "Serve with idlis, dosas, chapatis",
       "Use as seasoning for stir-fries",
     ],
-    category: Category.chutneyPowder,
+    category: ProductCategory.chutneyPowder,
     shelfLife: "Several weeks in airtight container",
     pricing: [{ weight: "100g", price: 95 }],
+  },
+];
+
+const FALLBACK_SAVOURIES: ProductData[] = [
+  {
+    name: "Peri Peri Makhana",
+    description:
+      "Crispy fox nuts (makhana) roasted and tossed in a bold peri peri spice blend. A guilt-free, fiery snack that is light, crunchy, and utterly addictive.",
+    ingredients: [
+      "Fox nuts (makhana)",
+      "Peri peri spice blend",
+      "Red chili",
+      "Salt",
+    ],
+    nutritionalBenefits: [
+      "Low in calories",
+      "Rich in calcium & magnesium",
+      "High in antioxidants",
+      "Good source of protein",
+    ],
+    usageSuggestions: [
+      "Healthy evening snack",
+      "Great movie-time munch",
+      "Guilt-free alternative to chips",
+    ],
+    category: ProductCategory.savoury,
+    shelfLife: "3-4 weeks in an airtight container",
+    pricing: [
+      { weight: "100g", price: 150 },
+      { weight: "200g", price: 280 },
+    ],
+  },
+  {
+    name: "Pepper Butter Makhana",
+    description:
+      "Roasted fox nuts (makhana) tossed in rich butter and freshly cracked black pepper. A delicate, melt-in-the-mouth snack with a warm peppery finish.",
+    ingredients: ["Fox nuts (makhana)", "Butter", "Black pepper", "Salt"],
+    nutritionalBenefits: [
+      "Low in calories",
+      "Rich in calcium & magnesium",
+      "Good source of protein",
+      "Naturally gluten-free",
+    ],
+    usageSuggestions: [
+      "Light tea-time snack",
+      "Healthy munch for kids",
+      "Post-workout snack",
+    ],
+    category: ProductCategory.savoury,
+    shelfLife: "3-4 weeks in an airtight container",
+    pricing: [
+      { weight: "100g", price: 150 },
+      { weight: "200g", price: 280 },
+    ],
+  },
+  {
+    name: "Poha (Avalakki)",
+    description:
+      "Lightly roasted flattened rice seasoned with mustard seeds, curry leaves, peanuts, green chili, and turmeric. A classic Karnataka breakfast snack loved by all ages.",
+    ingredients: [
+      "Flattened rice (poha/avalakki)",
+      "Peanuts",
+      "Curry leaves",
+      "Mustard seeds",
+      "Green chili",
+      "Turmeric",
+      "Sugar",
+      "Salt",
+      "Oil",
+    ],
+    nutritionalBenefits: [
+      "Good source of iron",
+      "Easily digestible",
+      "Energy-rich carbohydrates",
+      "Naturally light on the stomach",
+    ],
+    usageSuggestions: [
+      "Quick breakfast option",
+      "Afternoon tea snack",
+      "Travel-friendly munch",
+    ],
+    category: ProductCategory.savoury,
+    shelfLife: "2-3 weeks in an airtight container",
+    pricing: [
+      { weight: "250g", price: 160 },
+      { weight: "500g", price: 300 },
+    ],
+  },
+  {
+    name: "Churmuri",
+    description:
+      "A beloved Karnataka street-food style spiced puffed rice mix with peanuts, curry leaves, coconut, and a squeeze of lemon. Light, tangy, and irresistibly crunchy.",
+    ingredients: [
+      "Puffed rice (murmure)",
+      "Peanuts",
+      "Curry leaves",
+      "Grated coconut",
+      "Green chili",
+      "Lemon juice",
+      "Turmeric",
+      "Salt",
+      "Oil",
+    ],
+    nutritionalBenefits: [
+      "Very low in calories",
+      "Light and easily digestible",
+      "Good source of carbohydrates",
+      "Contains healthy fats from peanuts",
+    ],
+    usageSuggestions: [
+      "Perfect evening snack with chai",
+      "Light and refreshing any time of day",
+      "Great for kids and adults alike",
+    ],
+    category: ProductCategory.savoury,
+    shelfLife: "2-3 weeks in an airtight container",
+    pricing: [
+      { weight: "200g", price: 120 },
+      { weight: "400g", price: 220 },
+    ],
   },
 ];
 
@@ -476,6 +602,13 @@ function ProductCard({
 }: { product: ProductData; index: number }) {
   const [expanded, setExpanded] = useState(false);
 
+  const badgeLabel =
+    product.category === ProductCategory.laddu
+      ? "Laddu"
+      : product.category === ProductCategory.savoury
+        ? "Savoury"
+        : "Chutney";
+
   return (
     <motion.div
       data-ocid={`offerings.item.${index}`}
@@ -509,7 +642,7 @@ function ProductCard({
               borderColor: "oklch(0.7 0.19 62 / 0.3)",
             }}
           >
-            {product.category === Category.laddu ? "Laddu" : "Chutney"}
+            {badgeLabel}
           </Badge>
         </div>
 
@@ -636,17 +769,33 @@ export default function App() {
 
   let laddus: ProductData[] = FALLBACK_LADDUS;
   let chutneys: ProductData[] = FALLBACK_CHUTNEYS;
+  let savouries: ProductData[] = FALLBACK_SAVOURIES;
   if (backendProducts && backendProducts.length > 0) {
     const bLaddus = backendProducts.filter(
-      (p) => p.category === Category.laddu,
+      (p) => (p.category as string) === ProductCategory.laddu,
     );
     const bChutneys = backendProducts.filter(
-      (p) => p.category === Category.chutneyPowder,
+      (p) => (p.category as string) === ProductCategory.chutneyPowder,
+    );
+    const bSavouries = backendProducts.filter(
+      (p) => (p.category as string) === ProductCategory.savoury,
     );
     if (bLaddus.length > 0)
-      laddus = bLaddus.map((p, i) => ({ ...FALLBACK_LADDUS[i], ...p }));
+      laddus = bLaddus.map(
+        (p, i) => ({ ...FALLBACK_LADDUS[i], ...p }) as unknown as ProductData,
+      );
     if (bChutneys.length > 0)
-      chutneys = bChutneys.map((p, i) => ({ ...FALLBACK_CHUTNEYS[i], ...p }));
+      chutneys = bChutneys.map(
+        (p, i) => ({ ...FALLBACK_CHUTNEYS[i], ...p }) as unknown as ProductData,
+      );
+    if (bSavouries.length > 0)
+      savouries = bSavouries.map(
+        (p, i) =>
+          ({
+            ...FALLBACK_SAVOURIES[i],
+            ...p,
+          }) as unknown as ProductData,
+      );
   }
 
   const scrollTo = (id: string) => {
@@ -806,6 +955,26 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
+              <div
+                className="relative w-36 h-36 sm:w-44 sm:h-44 mb-6"
+                style={{
+                  filter:
+                    "drop-shadow(0 0 12px rgba(0,0,0,0.95)) drop-shadow(0 0 24px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(0,0,0,0.6))",
+                }}
+              >
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 70%)",
+                  }}
+                />
+                <img
+                  src="/assets/generated/PD-Logo-transparent.png"
+                  alt="Pleasing Delicacies Logo"
+                  className="relative w-full h-full object-contain"
+                />
+              </div>
               <p
                 className="text-sm font-semibold uppercase tracking-[0.2em] mb-3"
                 style={{ color: "oklch(0.85 0.15 70)" }}
@@ -884,11 +1053,11 @@ export default function App() {
                   recipes handed down from our Mothers and mother-in-law.
                 </p>
                 <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
-                  We specialize in crafting genuine laddus and nutritious
-                  Chutney powders, preserving the rich flavors of tradition. Our
-                  offerings are free from artificial colors and preservatives,
-                  ensuring that everything is freshly prepared and delivered
-                  straight to your doorsteps.
+                  We specialize in crafting genuine laddus, nutritious Chutney
+                  powders, and crispy savoury snacks, preserving the rich
+                  flavors of tradition. Our offerings are free from artificial
+                  colors and preservatives, ensuring that everything is freshly
+                  prepared and delivered straight to your doorsteps.
                 </p>
                 <a
                   href="tel:8792880292"
@@ -983,7 +1152,7 @@ export default function App() {
               </h2>
             </motion.div>
 
-            <div className="grid sm:grid-cols-2 gap-6 mb-10">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -1019,6 +1188,24 @@ export default function App() {
                   </p>
                 </div>
               </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="relative rounded-2xl overflow-hidden h-48 sm:col-span-2 lg:col-span-1"
+              >
+                <img
+                  src="/assets/generated/savouries-hero.dim_600x400.jpg"
+                  alt="Savoury snacks"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-5">
+                  <p className="font-display text-2xl font-bold text-white">
+                    Savouries
+                  </p>
+                </div>
+              </motion.div>
             </div>
 
             <Tabs defaultValue="laddus">
@@ -1040,6 +1227,13 @@ export default function App() {
                 >
                   🌿 Chutney Powders ({chutneys.length})
                 </TabsTrigger>
+                <TabsTrigger
+                  data-ocid="offerings.tab"
+                  value="savouries"
+                  className="flex-1 h-10 rounded-xl font-semibold text-sm transition-all data-[state=active]:shadow-warm"
+                >
+                  🥨 Savouries ({savouries.length})
+                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="laddus">
@@ -1057,6 +1251,18 @@ export default function App() {
               <TabsContent value="chutneys">
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   {chutneys.map((product, i) => (
+                    <ProductCard
+                      key={product.name}
+                      product={product}
+                      index={i + 1}
+                    />
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="savouries">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                  {savouries.map((product, i) => (
                     <ProductCard
                       key={product.name}
                       product={product}
@@ -1176,8 +1382,8 @@ export default function App() {
                 style={{ color: "oklch(0.82 0.04 72)" }}
               >
                 Fresh, homemade goodness delivered to your doorstep.
-                <br className="hidden sm:block" /> Contact Shailaja directly to
-                place your order.
+                <br className="hidden sm:block" /> Contact us directly to place
+                your order.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                 <a
@@ -1204,6 +1410,21 @@ export default function App() {
                 >
                   <Instagram className="w-5 h-5" />
                   @pleasing_delicacies
+                </a>
+                <a
+                  data-ocid="contact.button"
+                  href="https://wa.me/918792880292"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base transition-colors border"
+                  style={{
+                    borderColor: "oklch(0.55 0.17 145 / 0.6)",
+                    color: "oklch(0.9 0.04 75)",
+                    backgroundColor: "oklch(0.42 0.17 145 / 0.25)",
+                  }}
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp Us
                 </a>
               </div>
               <div
@@ -1241,7 +1462,7 @@ export default function App() {
           Pleasing Delicacies
         </p>
         <p className="text-xs mb-4" style={{ color: "oklch(0.65 0.04 65)" }}>
-          Proprietor: Shailaja Patil B · 8792880292
+          8792880292
         </p>
         <p className="text-xs" style={{ color: "oklch(0.55 0.04 65)" }}>
           © {year}. Built with{" "}
