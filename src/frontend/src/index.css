@@ -1,0 +1,143 @@
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm cream background */
+    --background: 0.97 0.012 75;
+    --foreground: 0.22 0.04 48;
+
+    /* Cards */
+    --card: 0.99 0.008 75;
+    --card-foreground: 0.22 0.04 48;
+
+    /* Popover */
+    --popover: 0.99 0.008 75;
+    --popover-foreground: 0.22 0.04 48;
+
+    /* Primary: saffron/turmeric golden */
+    --primary: 0.7 0.19 62;
+    --primary-foreground: 0.15 0.04 48;
+
+    /* Secondary: terracotta/rust */
+    --secondary: 0.93 0.03 72;
+    --secondary-foreground: 0.3 0.07 48;
+
+    /* Muted warm cream */
+    --muted: 0.94 0.018 74;
+    --muted-foreground: 0.5 0.04 60;
+
+    /* Accent: warm amber */
+    --accent: 0.88 0.08 72;
+    --accent-foreground: 0.25 0.05 50;
+
+    /* Destructive */
+    --destructive: 0.55 0.18 25;
+    --destructive-foreground: 0.98 0.005 75;
+
+    /* Borders */
+    --border: 0.88 0.03 72;
+    --input: 0.88 0.03 72;
+    --ring: 0.7 0.19 62;
+
+    /* Radius */
+    --radius: 0.75rem;
+
+    /* Charts */
+    --chart-1: 0.7 0.19 62;
+    --chart-2: 0.6 0.15 35;
+    --chart-3: 0.55 0.13 150;
+    --chart-4: 0.65 0.16 80;
+    --chart-5: 0.5 0.12 270;
+
+    /* Sidebar */
+    --sidebar: 0.95 0.015 75;
+    --sidebar-foreground: 0.22 0.04 48;
+    --sidebar-primary: 0.7 0.19 62;
+    --sidebar-primary-foreground: 0.15 0.04 48;
+    --sidebar-accent: 0.88 0.08 72;
+    --sidebar-accent-foreground: 0.25 0.05 50;
+    --sidebar-border: 0.88 0.03 72;
+    --sidebar-ring: 0.7 0.19 62;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-12 py-16 lg:py-24;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      oklch(0.12 0.06 48 / 0.5) 0%,
+      oklch(0.1 0.08 55 / 0.75) 100%
+    );
+  }
+
+  .grain-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .text-saffron {
+    color: oklch(0.7 0.19 62);
+  }
+
+  .bg-saffron {
+    background-color: oklch(0.7 0.19 62);
+  }
+
+  .bg-terracotta {
+    background-color: oklch(0.52 0.14 35);
+  }
+
+  .text-terracotta {
+    color: oklch(0.52 0.14 35);
+  }
+
+  .bg-spice-dark {
+    background-color: oklch(0.2 0.05 48);
+  }
+
+  .border-warm {
+    border-color: oklch(0.82 0.07 70);
+  }
+}
