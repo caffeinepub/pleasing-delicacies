@@ -1097,11 +1097,6 @@ export default function App() {
           id="hero"
           className="relative min-h-[92vh] flex items-end pb-16"
         >
-          <img
-            src="/assets/generated/hero-banner.dim_1200x500.jpg"
-            alt="Pleasing Delicacies hero"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
           <div className="hero-overlay absolute inset-0" />
           <div
             className="absolute top-20 right-8 w-48 h-48 rounded-full opacity-15 sm:w-72 sm:h-72"
@@ -1146,7 +1141,7 @@ export default function App() {
                 </p>
                 <h1
                   className="font-display text-5xl sm:text-7xl font-bold leading-tight mb-4"
-                  style={{ color: "#000000" }}
+                  style={{ color: "white" }}
                 >
                   Pleasing
                   <br />
@@ -1373,27 +1368,33 @@ export default function App() {
 
             <Tabs defaultValue="laddus">
               <TabsList
-                className="w-full mb-8 h-12 p-1 rounded-2xl"
-                style={{ backgroundColor: "oklch(0.96 0.04 72)" }}
+                className="w-full mb-8 h-14 p-1 rounded-2xl border-2"
+                style={{
+                  backgroundColor: "oklch(0.30 0.10 45)",
+                  borderColor: "oklch(0.58 0.28 38)",
+                }}
               >
                 <TabsTrigger
                   data-ocid="offerings.tab"
                   value="laddus"
-                  className="flex-1 h-10 rounded-xl font-semibold text-sm transition-all data-[state=active]:shadow-warm"
+                  className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
+                  style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
                 >
                   🍬 Laddus ({laddus.length})
                 </TabsTrigger>
                 <TabsTrigger
                   data-ocid="offerings.tab"
                   value="chutneys"
-                  className="flex-1 h-10 rounded-xl font-semibold text-sm transition-all data-[state=active]:shadow-warm"
+                  className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
+                  style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
                 >
                   🌿 Chutney Powders ({chutneys.length})
                 </TabsTrigger>
                 <TabsTrigger
                   data-ocid="offerings.tab"
                   value="savouries"
-                  className="flex-1 h-10 rounded-xl font-semibold text-sm transition-all data-[state=active]:shadow-warm"
+                  className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
+                  style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
                 >
                   🥨 Savouries ({savouries.length})
                 </TabsTrigger>
@@ -1535,7 +1536,7 @@ export default function App() {
               </p>
               <h2
                 className="font-display text-4xl sm:text-5xl font-bold mb-4 leading-tight"
-                style={{ color: "#000000" }}
+                style={{ color: "white" }}
               >
                 Ready to Order?
               </h2>
@@ -1561,7 +1562,7 @@ export default function App() {
                   Call 8792880292
                 </a>
                 <a
-                  href="https://instagram.com/pleasing_delicacies"
+                  href="https://www.instagram.com/pleasing._.delicacies?igsh=YnJtbzA3NjZydW9v"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-base transition-all hover:scale-105"
