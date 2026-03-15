@@ -234,7 +234,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Urad Dal Laddu",
-    image: "/assets/uploads/image-6-1.png",
+    image: "/assets/generated/urad-dal-nuts-laddu.dim_800x600.jpg",
     description:
       "Made from roasted urad dal (black gram lentils), ghee, and jaggery. Dal roasted until golden and ground to fine powder.",
     ingredients: [
@@ -294,7 +294,7 @@ const FALLBACK_LADDUS: ProductData[] = [
 const FALLBACK_CHUTNEYS: ProductData[] = [
   {
     name: "Moringa Chutney Powder",
-    image: "/assets/generated/product-moringa-chutney-powder.dim_400x300.jpg",
+    image: "/assets/generated/moringa-chutney-powder.dim_600x600.jpg",
     description:
       "Made from dried Moringa (drumstick tree) leaves. Blended with roasted lentils, dry chilies, tamarind, curry leaves, and spices.",
     ingredients: [
@@ -322,7 +322,7 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   },
   {
     name: "Curry Leaves Chutney Powder",
-    image: "/assets/generated/product-curry-leaves-chutney.dim_400x300.jpg",
+    image: "/assets/generated/curry-leaves-chutney-powder.dim_600x600.jpg",
     description:
       "Made from aromatic curry leaves with roasted lentils, dry red chilies, tamarind, and fresh garlic.",
     ingredients: [
@@ -350,7 +350,7 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   },
   {
     name: "Mint Leaves Chutney Powder",
-    image: "/assets/generated/product-mint-leaves-chutney.dim_400x300.jpg",
+    image: "/assets/generated/mint-leaves-chutney-powder.dim_600x600.jpg",
     description:
       "Made from dried mint leaves with roasted lentils, tamarind, red chilies, and cumin. Refreshing and cooling.",
     ingredients: [
@@ -378,7 +378,7 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   },
   {
     name: "Flax Seeds Chutney Powder",
-    image: "/assets/generated/product-flaxseeds-chutney.dim_400x300.jpg",
+    image: "/assets/generated/flax-seeds-chutney-powder.dim_600x600.jpg",
     description:
       "Made from roasted flax seeds with dry red chilies, tamarind, cumin, and garlic. Nutty, hearty, and highly nutritious.",
     ingredients: [
@@ -406,7 +406,7 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   },
   {
     name: "Groundnut Chutney Powder",
-    image: "/assets/generated/product-groundnut-chutney.dim_400x300.jpg",
+    image: "/assets/generated/groundnut-chutney-powder.dim_600x600.jpg",
     description:
       "Made from roasted peanuts with dry red chilies, tamarind, curry leaves, garlic, and cumin. Rich, nutty, and versatile.",
     ingredients: [
