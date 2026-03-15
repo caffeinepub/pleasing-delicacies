@@ -1,13 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ChevronDown,
@@ -20,10 +11,8 @@ import {
   MessageCircle,
   Phone,
   ShieldCheck,
-  ShoppingCart,
   Sparkles,
   Star,
-  Trash2,
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -55,18 +44,6 @@ interface ProductData {
   category: ProductCategory;
   shelfLife: string;
   pricing: PricingTier[];
-}
-
-// ─────────────────────────────────────────────
-// CART
-// ─────────────────────────────────────────────
-
-interface CartItem {
-  id: string;
-  name: string;
-  weightOption: string;
-  price: number;
-  quantity: number;
 }
 
 const FALLBACK_LADDUS: ProductData[] = [
@@ -662,16 +639,8 @@ function PricingDisplay({ pricing }: { pricing: PricingTier[] }) {
 function ProductCard({
   product,
   index,
-  onAddToCart,
-}: {
-  product: ProductData;
-  index: number;
-  onAddToCart: (item: CartItem) => void;
-}) {
+}: { product: ProductData; index: number }) {
   const [expanded, setExpanded] = useState(false);
-  const [selectedWeight, setSelectedWeight] = useState(
-    product.pricing[0].weight,
-  );
 
   const badgeLabel =
     product.category === ProductCategory.laddu
@@ -796,52 +765,6 @@ function ProductCard({
         </AnimatePresence>
       </div>
 
-      <div className="px-5 pb-3">
-        <div className="flex gap-2 items-center">
-          <select
-            value={selectedWeight}
-            onChange={(e) => setSelectedWeight(e.target.value)}
-            className="flex-1 text-xs font-medium rounded-lg px-2 py-2 border cursor-pointer"
-            style={{
-              backgroundColor: "oklch(0.58 0.28 38 / 0.08)",
-              borderColor: "oklch(0.7 0.19 62 / 0.3)",
-              color: "oklch(0.35 0.1 52)",
-            }}
-            data-ocid={`product.select.${index}`}
-          >
-            {product.pricing.map((tier) => (
-              <option key={tier.weight} value={tier.weight}>
-                {tier.weight} — ₹{tier.price}
-              </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            data-ocid={`product.add_to_cart_button.${index}`}
-            onClick={() => {
-              const tier = product.pricing.find(
-                (t) => t.weight === selectedWeight,
-              )!;
-              onAddToCart({
-                id: `${product.name}-${selectedWeight}`,
-                name: product.name,
-                weightOption: selectedWeight,
-                price: tier.price,
-                quantity: 1,
-              });
-            }}
-            className="shrink-0 flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold transition-all hover:scale-105 active:scale-95"
-            style={{
-              backgroundColor: "oklch(0.58 0.28 38)",
-              color: "oklch(0.15 0.04 48)",
-            }}
-          >
-            <ShoppingCart className="w-3.5 h-3.5" />
-            Add
-          </button>
-        </div>
-      </div>
-
       <div className="px-5 pb-4">
         <button
           type="button"
@@ -876,51 +799,7 @@ function ProductCard({
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const { data: backendProducts } = useGetAllProducts();
-
-  const addToCart = (item: CartItem) => {
-    setCartItems((prev) => {
-      const existing = prev.find((i) => i.id === item.id);
-      if (existing) {
-        return prev.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i,
-        );
-      }
-      return [...prev, item];
-    });
-  };
-
-  const removeFromCart = (id: string) => {
-    setCartItems((prev) => prev.filter((i) => i.id !== id));
-  };
-
-  const updateQty = (id: string, delta: number) => {
-    setCartItems((prev) =>
-      prev.map((i) =>
-        i.id === id ? { ...i, quantity: Math.max(1, i.quantity + delta) } : i,
-      ),
-    );
-  };
-
-  const cartTotal = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
-  const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
-
-  const sendWhatsAppOrder = () => {
-    if (cartItems.length === 0) return;
-    const lines = cartItems
-      .map(
-        (i) =>
-          `- ${i.name} (${i.weightOption}): ₹${i.price} x ${i.quantity} = ₹${i.price * i.quantity}`,
-      )
-      .join("\n");
-    const msg = `Hello! I'd like to order:\n${lines}\n\nTotal: ₹${cartTotal}\nPlease confirm availability.`;
-    window.open(
-      `https://wa.me/918792880292?text=${encodeURIComponent(msg)}`,
-      "_blank",
-    );
-  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -1406,7 +1285,6 @@ export default function App() {
                       key={product.name}
                       product={product}
                       index={i + 1}
-                      onAddToCart={addToCart}
                     />
                   ))}
                 </div>
@@ -1419,7 +1297,6 @@ export default function App() {
                       key={product.name}
                       product={product}
                       index={i + 1}
-                      onAddToCart={addToCart}
                     />
                   ))}
                 </div>
@@ -1432,7 +1309,6 @@ export default function App() {
                       key={product.name}
                       product={product}
                       index={i + 1}
-                      onAddToCart={addToCart}
                     />
                   ))}
                 </div>
@@ -1564,12 +1440,10 @@ export default function App() {
                   href="https://instagram.com/pleasing_delicacies"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-base transition-all hover:scale-105"
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base transition-colors border"
                   style={{
-                    background:
-                      "linear-gradient(135deg, oklch(0.55 0.22 310), oklch(0.5 0.25 25), oklch(0.65 0.28 55))",
-                    color: "white",
-                    boxShadow: "0 4px 20px oklch(0.55 0.22 310 / 0.4)",
+                    borderColor: "oklch(0.7 0.19 62 / 0.4)",
+                    color: "oklch(0.9 0.04 75)",
                   }}
                 >
                   <Instagram className="w-5 h-5" />
@@ -1580,11 +1454,11 @@ export default function App() {
                   href="https://wa.me/918792880292"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-base transition-all hover:scale-105"
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base transition-colors border"
                   style={{
-                    backgroundColor: "oklch(0.52 0.18 145)",
-                    color: "white",
-                    boxShadow: "0 4px 20px oklch(0.52 0.18 145 / 0.5)",
+                    borderColor: "oklch(0.55 0.17 145 / 0.6)",
+                    color: "oklch(0.9 0.04 75)",
+                    backgroundColor: "oklch(0.42 0.17 145 / 0.25)",
                   }}
                 >
                   <MessageCircle className="w-5 h-5" />
@@ -1613,194 +1487,6 @@ export default function App() {
           </div>
         </section>
       </main>
-
-      {/* FLOATING CART BUTTON */}
-      <button
-        type="button"
-        data-ocid="cart.open_modal_button"
-        onClick={() => setCartOpen(true)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
-        style={{
-          backgroundColor: "oklch(0.58 0.28 38)",
-          color: "oklch(0.15 0.04 48)",
-        }}
-      >
-        <ShoppingCart className="w-6 h-6" />
-        {cartCount > 0 && (
-          <span
-            className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
-            style={{ backgroundColor: "oklch(0.45 0.2 25)", color: "white" }}
-          >
-            {cartCount}
-          </span>
-        )}
-      </button>
-
-      {/* CART SHEET */}
-      <Sheet open={cartOpen} onOpenChange={setCartOpen}>
-        <SheetContent
-          data-ocid="cart.sheet"
-          side="right"
-          className="w-full sm:max-w-md p-0 flex flex-col"
-          style={{
-            backgroundColor: "oklch(0.97 0.02 75)",
-            borderLeft: "1px solid oklch(0.85 0.06 65)",
-          }}
-        >
-          <SheetHeader
-            className="px-5 pt-5 pb-4 border-b"
-            style={{ borderColor: "oklch(0.85 0.06 65)" }}
-          >
-            <SheetTitle
-              className="font-display text-xl flex items-center gap-2"
-              style={{ color: "oklch(0.25 0.07 48)" }}
-            >
-              <ShoppingCart
-                className="w-5 h-5"
-                style={{ color: "oklch(0.58 0.28 38)" }}
-              />
-              Your Cart
-              {cartCount > 0 && (
-                <span
-                  className="ml-auto text-sm font-normal"
-                  style={{ color: "oklch(0.55 0.04 65)" }}
-                >
-                  {cartCount} item{cartCount !== 1 ? "s" : ""}
-                </span>
-              )}
-            </SheetTitle>
-          </SheetHeader>
-
-          {cartItems.length === 0 ? (
-            <div
-              data-ocid="cart.empty_state"
-              className="flex-1 flex flex-col items-center justify-center gap-3 px-5"
-            >
-              <ShoppingCart
-                className="w-12 h-12 opacity-20"
-                style={{ color: "oklch(0.58 0.28 38)" }}
-              />
-              <p className="text-sm" style={{ color: "oklch(0.55 0.04 65)" }}>
-                Your cart is empty
-              </p>
-              <p
-                className="text-xs text-center"
-                style={{ color: "oklch(0.65 0.04 65)" }}
-              >
-                Browse our products and add items to get started
-              </p>
-            </div>
-          ) : (
-            <>
-              <ScrollArea className="flex-1 px-5 py-4">
-                <div className="flex flex-col gap-4">
-                  {cartItems.map((item, idx) => (
-                    <div
-                      key={item.id}
-                      data-ocid={`cart.item.${idx + 1}`}
-                      className="flex items-start gap-3 p-3 rounded-xl"
-                      style={{ backgroundColor: "oklch(0.93 0.05 70 / 0.5)" }}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <p
-                          className="font-semibold text-sm truncate"
-                          style={{ color: "oklch(0.25 0.07 48)" }}
-                        >
-                          {item.name}
-                        </p>
-                        <p
-                          className="text-xs mt-0.5"
-                          style={{ color: "oklch(0.55 0.08 55)" }}
-                        >
-                          {item.weightOption} — ₹{item.price} each
-                        </p>
-                        <div className="flex items-center gap-2 mt-2">
-                          <button
-                            type="button"
-                            onClick={() => updateQty(item.id, -1)}
-                            className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-lg transition-colors hover:bg-white"
-                            style={{
-                              backgroundColor: "oklch(0.58 0.28 38 / 0.15)",
-                              color: "oklch(0.38 0.1 52)",
-                            }}
-                          >
-                            −
-                          </button>
-                          <span
-                            className="text-sm font-bold w-5 text-center"
-                            style={{ color: "oklch(0.25 0.07 48)" }}
-                          >
-                            {item.quantity}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => updateQty(item.id, 1)}
-                            className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-lg transition-colors hover:bg-white"
-                            style={{
-                              backgroundColor: "oklch(0.58 0.28 38 / 0.15)",
-                              color: "oklch(0.38 0.1 52)",
-                            }}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-2">
-                        <p
-                          className="font-bold text-sm"
-                          style={{ color: "oklch(0.38 0.1 52)" }}
-                        >
-                          ₹{item.price * item.quantity}
-                        </p>
-                        <button
-                          type="button"
-                          data-ocid={`cart.delete_button.${idx + 1}`}
-                          onClick={() => removeFromCart(item.id)}
-                          className="text-red-400 hover:text-red-600 transition-colors"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </ScrollArea>
-              <div
-                className="px-5 py-5 border-t"
-                style={{ borderColor: "oklch(0.85 0.06 65)" }}
-              >
-                <div className="flex justify-between items-center mb-4">
-                  <span
-                    className="font-semibold text-base"
-                    style={{ color: "oklch(0.25 0.07 48)" }}
-                  >
-                    Total
-                  </span>
-                  <span
-                    className="font-bold text-xl"
-                    style={{ color: "oklch(0.38 0.1 52)" }}
-                  >
-                    ₹{cartTotal}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  data-ocid="cart.whatsapp_button"
-                  onClick={sendWhatsAppOrder}
-                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg"
-                  style={{
-                    backgroundColor: "oklch(0.55 0.18 145)",
-                    color: "white",
-                  }}
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Send Order via WhatsApp
-                </button>
-              </div>
-            </>
-          )}
-        </SheetContent>
-      </Sheet>
 
       {/* FOOTER */}
       <footer className="py-8 px-4 text-center border-t border-border traditional-bg-dark">
