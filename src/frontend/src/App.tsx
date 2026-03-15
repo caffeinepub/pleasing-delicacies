@@ -266,7 +266,7 @@ const FALLBACK_LADDUS: ProductData[] = [
   },
   {
     name: "Til Laddu",
-    image: "/assets/uploads/image-8-1.png",
+    image: "/assets/generated/til-laddu.dim_800x600.jpg",
     description:
       "Made from roasted sesame seeds (til) and jaggery. Simple, crunchy, and rich in calcium, magnesium, iron, and healthy fats.",
     ingredients: ["Sesame seeds (til)", "Jaggery", "Cardamom"],
@@ -1097,6 +1097,11 @@ export default function App() {
           id="hero"
           className="relative min-h-[92vh] flex items-end pb-16"
         >
+          <img
+            src="/assets/generated/hero-banner.dim_1200x500.jpg"
+            alt="Pleasing Delicacies hero"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
           <div className="hero-overlay absolute inset-0" />
           <div
             className="absolute top-20 right-8 w-48 h-48 rounded-full opacity-15 sm:w-72 sm:h-72"
