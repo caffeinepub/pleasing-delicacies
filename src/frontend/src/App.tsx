@@ -12,7 +12,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ChevronDown,
   ChevronUp,
-  Globe,
   Heart,
   Instagram,
   Leaf,
@@ -48,7 +47,7 @@ interface PricingTier {
 interface ProductData {
   name: string;
   image?: string;
-  description: string;
+  description: string | string[];
   ingredients: string[];
   nutritionalBenefits: string[];
   usageSuggestions: string[];
@@ -73,8 +72,15 @@ const FALLBACK_LADDUS: ProductData[] = [
   {
     name: "Gond & Nuts Laddu",
     image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-1.18.20-PM-1.jpeg",
-    description:
-      "Traditional sweet made from edible gum (gond), mixed nuts, ghee, and jaggery. Roasted gond adds a distinct crispy texture.",
+    description: [
+      "Made from edible gum (gond), mixed nuts, ghee, and jaggery or sugar",
+      "Gond is derived from tree sap, roasted in ghee until it puffs up and turns crispy — adding a distinct texture",
+      "Nuts like almonds, cashews, and pistachios are roasted and coarsely chopped for crunch and richness",
+      "Sweetened and flavored with cardamom for warmth and fragrance",
+      "Particularly known for health benefits during winter months or postpartum recovery",
+      "Gond strengthens bones, improves stamina, and provides warmth to the body",
+      "A nourishing and energy-boosting treat — combining indulgence with well-being",
+    ],
     ingredients: [
       "Edible gum (gond)",
       "Almonds",
@@ -106,8 +112,14 @@ const FALLBACK_LADDUS: ProductData[] = [
   {
     name: "Wheat & Nuts Laddu",
     image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-2.46.00-PM-1.jpeg",
-    description:
-      "Made from whole wheat flour, mixed nuts, ghee, and jaggery. Flour roasted in ghee until golden brown with a rich nutty aroma.",
+    description: [
+      "Made from whole wheat flour, mixed nuts, ghee, and jaggery",
+      "Flour is slow-roasted in ghee until golden brown with a rich, nutty aroma",
+      "Loaded with almonds and cashews for added crunch and nutrition",
+      "Sweetened naturally with jaggery and flavored with cardamom",
+      "A wholesome winter treat that provides sustained energy",
+      "No artificial preservatives or colors",
+    ],
     ingredients: [
       "Whole wheat flour",
       "Almonds",
@@ -138,8 +150,14 @@ const FALLBACK_LADDUS: ProductData[] = [
   {
     name: "Dry Fruits Laddu",
     image: "/assets/uploads/Dry-Fruits-Laddu-1.jpeg",
-    description:
-      "No Sugar or Jaggery — sweetness purely from dates and raisins. Contains almonds, cashews, pistachios, and walnuts.",
+    description: [
+      "No added sugar or jaggery — natural sweetness comes from dates and raisins",
+      "Packed with almonds, cashews, pistachios, and walnuts for rich nutrition",
+      "Naturally gluten-free and diabetic-friendly",
+      "High in healthy fats, fiber, and essential vitamins",
+      "A guilt-free indulgence for health-conscious snackers",
+      "No artificial preservatives or colors",
+    ],
     ingredients: [
       "Dates",
       "Raisins",
@@ -171,8 +189,14 @@ const FALLBACK_LADDUS: ProductData[] = [
   {
     name: "Flax Seeds & Nuts Laddu",
     image: "/assets/uploads/image-3-1.png",
-    description:
-      "Made from roasted flax seeds, jaggery, ghee, dry fruits and nuts. Rich in omega-3 fatty acids and antioxidants.",
+    description: [
+      "Made from roasted flax seeds, ghee, jaggery, dry fruits, and mixed nuts",
+      "Rich in omega-3 fatty acids that support heart and brain health",
+      "High dietary fiber for improved digestion",
+      "Powerful antioxidant properties from flax seeds",
+      "Naturally sweetened with jaggery and flavored with cardamom",
+      "An everyday wellness snack with traditional goodness",
+    ],
     ingredients: [
       "Flax seeds",
       "Mixed nuts",
@@ -203,8 +227,14 @@ const FALLBACK_LADDUS: ProductData[] = [
   {
     name: "Ragi & Nuts Laddu",
     image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-2.31.32-PM-1--1.jpeg",
-    description:
-      "Made from ragi (finger millet) flour, mixed nuts, ghee, and jaggery. Ragi is rich in calcium, iron, and dietary fiber.",
+    description: [
+      "Made from ragi (finger millet) flour, mixed nuts, ghee, and jaggery",
+      "Ragi is one of the richest plant sources of calcium and iron",
+      "High in dietary fiber for healthy digestion",
+      "Excellent for bone health and suitable for all ages",
+      "Slow-roasted in ghee for a deep, nutty flavor",
+      "A millet-based superfood laddu loved by children and adults alike",
+    ],
     ingredients: [
       "Ragi (finger millet) flour",
       "Almonds",
@@ -235,8 +265,14 @@ const FALLBACK_LADDUS: ProductData[] = [
   {
     name: "Urad Dal Laddu",
     image: "/assets/generated/urad-dal-nuts-laddu.dim_800x600.jpg",
-    description:
-      "Made from roasted urad dal (black gram lentils), ghee, and jaggery. Dal roasted until golden and ground to fine powder.",
+    description: [
+      "Made from roasted urad dal (black gram lentils), ghee, and jaggery",
+      "Dal is slow-roasted until golden, then ground to a fine aromatic powder",
+      "Enriched with almonds and cashews for added nutrition",
+      "Excellent source of plant protein and dietary fiber",
+      "Rich in magnesium and iron for strength and vitality",
+      "A festive classic that is both nourishing and delicious",
+    ],
     ingredients: [
       "Urad dal (black gram)",
       "Ghee",
@@ -267,8 +303,14 @@ const FALLBACK_LADDUS: ProductData[] = [
   {
     name: "Til Laddu",
     image: "/assets/generated/til-laddu.dim_800x600.jpg",
-    description:
-      "Made from roasted sesame seeds (til) and jaggery. Simple, crunchy, and rich in calcium, magnesium, iron, and healthy fats.",
+    description: [
+      "Made from roasted sesame seeds (til) and jaggery — just two core ingredients",
+      "Simple, crunchy, and bursting with natural flavor",
+      "Rich in calcium, magnesium, and iron",
+      "A good source of healthy fats for sustained energy",
+      "Traditional Makar Sankranti sweet with year-round appeal",
+      "Provides natural warmth — ideal for winter months",
+    ],
     ingredients: ["Sesame seeds (til)", "Jaggery", "Cardamom"],
     nutritionalBenefits: [
       "Rich in calcium",
@@ -295,8 +337,14 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   {
     name: "Moringa Chutney Powder",
     image: "/assets/generated/moringa-chutney-powder.dim_600x600.jpg",
-    description:
-      "Made from dried Moringa (drumstick tree) leaves. Blended with roasted lentils, dry chilies, tamarind, curry leaves, and spices.",
+    description: [
+      "Made from dried Moringa (drumstick tree) leaves — a nutritional powerhouse",
+      "Blended with roasted lentils, dry chilies, tamarind, curry leaves, and spices",
+      "Rich in vitamins A, C & E with powerful antioxidant properties",
+      "High in calcium, potassium, and iron",
+      "Supports immunity and healthy digestion",
+      "Sprinkle over rice with ghee or serve alongside dosas and idlis",
+    ],
     ingredients: [
       "Moringa leaves",
       "Roasted lentils (urad/chana dal)",
@@ -323,8 +371,14 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   {
     name: "Curry Leaves Chutney Powder",
     image: "/assets/generated/curry-leaves-chutney-powder.dim_600x600.jpg",
-    description:
-      "Made from aromatic curry leaves with roasted lentils, dry red chilies, tamarind, and fresh garlic.",
+    description: [
+      "Made from freshly dried curry leaves, a staple of South Indian cooking",
+      "Blended with roasted lentils, dry chilies, tamarind, and aromatic spices",
+      "Rich in antioxidants, vitamins A, B & C, and iron",
+      "Supports hair health, digestion, and blood sugar balance",
+      "Deep, savory flavor that enhances any meal",
+      "Pairs beautifully with hot rice, idlis, dosas, and chapatis",
+    ],
     ingredients: [
       "Curry leaves",
       "Urad/chana dal",
@@ -351,8 +405,14 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   {
     name: "Mint Leaves Chutney Powder",
     image: "/assets/generated/mint-leaves-chutney-powder.dim_600x600.jpg",
-    description:
-      "Made from dried mint leaves with roasted lentils, tamarind, red chilies, and cumin. Refreshing and cooling.",
+    description: [
+      "Made from sun-dried mint leaves and a blend of roasted spices and lentils",
+      "Fresh, cooling flavor with a subtle tangy kick from tamarind",
+      "Aids digestion and provides a refreshing, minty aroma",
+      "Rich in vitamins C & A, iron, and manganese",
+      "Versatile accompaniment for rice, idlis, dosas, and chapatis",
+      "A light, healthy flavor boost to everyday meals",
+    ],
     ingredients: [
       "Dried mint leaves",
       "Roasted lentils",
@@ -379,8 +439,14 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   {
     name: "Flax Seeds Chutney Powder",
     image: "/assets/generated/flax-seeds-chutney-powder.dim_600x600.jpg",
-    description:
-      "Made from roasted flax seeds with dry red chilies, tamarind, cumin, and garlic. Nutty, hearty, and highly nutritious.",
+    description: [
+      "Made from roasted flax seeds blended with lentils, chilies, and spices",
+      "Rich in plant-based omega-3 fatty acids for heart and brain health",
+      "Excellent source of dietary fiber supporting healthy digestion",
+      "Subtle nutty flavor with a savory, spiced kick",
+      "Supports cholesterol management and hormonal balance",
+      "A nutritious condiment for daily use with rice, idlis, or dosas",
+    ],
     ingredients: [
       "Flax seeds",
       "Dry red chilies",
@@ -407,8 +473,14 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
   {
     name: "Groundnut Chutney Powder",
     image: "/assets/generated/groundnut-chutney-powder.dim_600x600.jpg",
-    description:
-      "Made from roasted peanuts with dry red chilies, tamarind, curry leaves, garlic, and cumin. Rich, nutty, and versatile.",
+    description: [
+      "Made from roasted groundnuts (peanuts) blended with lentils, dry chilies, and spices",
+      "Rich, nutty flavor with a satisfying crunch and depth",
+      "Good source of plant protein, healthy fats, and B vitamins",
+      "High in magnesium and potassium for heart health",
+      "Pairs perfectly with hot rice and ghee, idlis, dosas, and chapatis",
+      "A South Indian pantry staple made fresh and preservative-free",
+    ],
     ingredients: [
       "Roasted groundnuts (peanuts)",
       "Dry red chilies",
@@ -437,8 +509,14 @@ const FALLBACK_CHUTNEYS: ProductData[] = [
 const FALLBACK_SAVOURIES: ProductData[] = [
   {
     name: "Peri Peri Makhana",
-    description:
-      "Crispy fox nuts (makhana) roasted and tossed in a bold peri peri spice blend. A guilt-free, fiery snack that is light, crunchy, and utterly addictive.",
+    description: [
+      "Crispy fox nuts (makhana) tossed in a zesty peri peri spice blend",
+      "Bold, tangy heat from chili, garlic, and pepper seasoning",
+      "Low in calories and naturally gluten-free",
+      "Rich in calcium, magnesium, and antioxidants",
+      "A satisfying guilt-free snack for spice lovers",
+      "Great for evening munching, movie time, or on-the-go snacking",
+    ],
     ingredients: [
       "Fox nuts (makhana)",
       "Peri peri spice blend",
@@ -463,8 +541,14 @@ const FALLBACK_SAVOURIES: ProductData[] = [
   },
   {
     name: "Pepper Butter Makhana",
-    description:
-      "Roasted fox nuts (makhana) tossed in rich butter and freshly cracked black pepper. A delicate, melt-in-the-mouth snack with a warm peppery finish.",
+    description: [
+      "Roasted fox nuts (makhana) tossed in rich butter and freshly cracked black pepper",
+      "Delicate, melt-in-the-mouth texture with a warm peppery finish",
+      "Low in calories and rich in calcium and magnesium",
+      "Good source of plant protein and naturally gluten-free",
+      "Light, elegant flavor — a healthier alternative to chips or popcorn",
+      "Perfect as a tea-time snack or a healthy munch for kids",
+    ],
     ingredients: ["Fox nuts (makhana)", "Butter", "Black pepper", "Salt"],
     nutritionalBenefits: [
       "Low in calories",
@@ -484,8 +568,14 @@ const FALLBACK_SAVOURIES: ProductData[] = [
   },
   {
     name: "Poha (Avalakki)",
-    description:
-      "Lightly roasted flattened rice seasoned with mustard seeds, curry leaves, peanuts, green chili, and turmeric. A classic Karnataka breakfast snack loved by all ages.",
+    description: [
+      "Lightly roasted flattened rice seasoned with mustard seeds, curry leaves, and peanuts",
+      "Flavored with green chili and turmeric for a classic Karnataka taste",
+      "Good source of iron and easily digestible carbohydrates",
+      "Light on the stomach — ideal for breakfast or a quick snack",
+      "No artificial additives or preservatives",
+      "A comforting, wholesome snack loved by all ages",
+    ],
     ingredients: [
       "Flattened rice (poha/avalakki)",
       "Peanuts",
@@ -493,7 +583,6 @@ const FALLBACK_SAVOURIES: ProductData[] = [
       "Mustard seeds",
       "Green chili",
       "Turmeric",
-      "Sugar",
       "Salt",
       "Oil",
     ],
@@ -518,15 +607,20 @@ const FALLBACK_SAVOURIES: ProductData[] = [
   },
   {
     name: "Churmuri",
-    description:
-      "A beloved Karnataka street-food style spiced puffed rice mix with peanuts, curry leaves, coconut, and a squeeze of lemon. Light, tangy, and irresistibly crunchy.",
+    description: [
+      "Karnataka street-food style spiced puffed rice mix",
+      "Tossed with peanuts, curry leaves, grated coconut, and green chili",
+      "Light, crunchy, and irresistibly flavorful",
+      "Very low in calories and easily digestible",
+      "No artificial flavors or preservatives",
+      "A beloved South Indian snack for all ages",
+    ],
     ingredients: [
       "Puffed rice (murmure)",
       "Peanuts",
       "Curry leaves",
       "Grated coconut",
       "Green chili",
-      "Lemon juice",
       "Turmeric",
       "Salt",
       "Oil",
@@ -719,9 +813,17 @@ function ProductCard({
 
         <PricingDisplay pricing={product.pricing} />
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {product.description}
-        </p>
+        {Array.isArray(product.description) ? (
+          <ul className="text-sm text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
+            {product.description.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {product.description}
+          </p>
+        )}
 
         <AnimatePresence>
           {expanded && (
@@ -832,8 +934,9 @@ function ProductCard({
             }}
             className="shrink-0 flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold transition-all hover:scale-105 active:scale-95"
             style={{
-              backgroundColor: "oklch(0.58 0.28 38)",
-              color: "oklch(0.15 0.04 48)",
+              backgroundColor: "#e65c00",
+              color: "white",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
             }}
           >
             <ShoppingCart className="w-3.5 h-3.5" />
@@ -912,14 +1015,18 @@ export default function App() {
     const lines = cartItems
       .map(
         (i) =>
-          `- ${i.name} (${i.weightOption}): ₹${i.price} x ${i.quantity} = ₹${i.price * i.quantity}`,
+          `- ${i.name} (${i.weightOption}): Rs.${i.price} x ${i.quantity} = Rs.${i.price * i.quantity}`,
       )
       .join("\n");
-    const msg = `Hello! I'd like to order:\n${lines}\n\nTotal: ₹${cartTotal}\nPlease confirm availability.`;
-    window.open(
-      `https://wa.me/918792880292?text=${encodeURIComponent(msg)}`,
-      "_blank",
-    );
+    const msg = `Hello! I'd like to order:\n${lines}\n\nTotal: Rs.${cartTotal}\nPlease confirm availability.`;
+    const url = `https://wa.me/918792880292?text=${encodeURIComponent(msg)}`;
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   useEffect(() => {
@@ -1007,11 +1114,10 @@ export default function App() {
                   type="button"
                   data-ocid="nav.link"
                   onClick={() => scrollTo(link.id)}
-                  className="text-sm font-medium transition-colors hover:opacity-80"
+                  className="px-4 py-2 rounded-full text-sm font-semibold transition-all hover:opacity-80"
                   style={{
-                    color: scrolled
-                      ? "oklch(0.35 0.07 50)"
-                      : "oklch(0.96 0.04 75)",
+                    backgroundColor: "oklch(0.58 0.28 38)",
+                    color: "oklch(0.15 0.04 48)",
                   }}
                 >
                   {link.label}
@@ -1066,7 +1172,11 @@ export default function App() {
                       type="button"
                       data-ocid="nav.link"
                       onClick={() => scrollTo(link.id)}
-                      className="w-full text-left px-3 py-3 rounded-xl text-base font-medium text-foreground hover:bg-accent transition-colors"
+                      className="w-full text-center px-4 py-3 rounded-full text-base font-semibold transition-all hover:opacity-80"
+                      style={{
+                        backgroundColor: "oklch(0.58 0.28 38)",
+                        color: "oklch(0.15 0.04 48)",
+                      }}
                     >
                       {link.label}
                     </button>
@@ -1158,6 +1268,18 @@ export default function App() {
                 >
                   Authentic. Traditional. Homemade.
                 </p>
+                <p
+                  className="text-2xl sm:text-3xl font-bold tracking-wide mb-8 mt-2"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, oklch(0.75 0.32 55), oklch(0.65 0.32 25), oklch(0.72 0.28 80))",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Healthy Snacking Redefined
+                </p>
                 <div className="flex flex-wrap gap-3">
                   <button
                     type="button"
@@ -1188,7 +1310,11 @@ export default function App() {
         </section>
 
         {/* ABOUT */}
-        <section id="about" className="section-padding traditional-bg">
+        <section
+          id="about"
+          className="section-padding"
+          style={{ backgroundColor: "oklch(0.96 0.04 75)" }}
+        >
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <motion.div
@@ -1289,6 +1415,32 @@ export default function App() {
                 ))}
               </motion.div>
             </div>
+
+            {/* Our Story Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="mt-12 rounded-3xl overflow-hidden shadow-xl"
+            >
+              <img
+                src="/assets/generated/our-story-elderly-woman.dim_800x600.jpg"
+                alt="Traditional elderly woman lovingly preparing laddus by hand"
+                className="w-full object-cover"
+                style={{ maxHeight: "420px" }}
+              />
+              <div
+                className="py-4 px-6 text-center text-sm font-medium italic"
+                style={{
+                  backgroundColor: "oklch(0.94 0.04 72)",
+                  color: "oklch(0.45 0.12 55)",
+                }}
+              >
+                Our recipes are lovingly prepared the traditional way — just
+                like grandmother used to make.
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -1359,7 +1511,7 @@ export default function App() {
                 className="relative rounded-2xl overflow-hidden h-48 sm:col-span-2 lg:col-span-1"
               >
                 <img
-                  src="/assets/generated/savouries-hero.dim_600x400.jpg"
+                  src="/assets/generated/savouries-hero.dim_800x500.jpg"
                   alt="Savoury snacks"
                   className="w-full h-full object-cover"
                 />
@@ -1432,6 +1584,14 @@ export default function App() {
               </TabsContent>
 
               <TabsContent value="savouries">
+                <div className="text-center mb-6">
+                  <p
+                    className="font-display text-2xl sm:text-3xl font-bold"
+                    style={{ color: "oklch(0.38 0.2 28)" }}
+                  >
+                    Healthy Snacking Redefined
+                  </p>
+                </div>
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   {savouries.map((product, i) => (
                     <ProductCard
@@ -1597,24 +1757,6 @@ export default function App() {
                   WhatsApp Us
                 </a>
               </div>
-              <div
-                className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl"
-                style={{ backgroundColor: "oklch(0.97 0.02 75 / 0.07)" }}
-              >
-                <Globe
-                  className="w-4 h-4"
-                  style={{ color: "oklch(0.58 0.28 38)" }}
-                />
-                <a
-                  href="https://pleasing-delicacies.mini.site"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm"
-                  style={{ color: "oklch(0.85 0.06 72)" }}
-                >
-                  pleasing-delicacies.mini.site
-                </a>
-              </div>
             </motion.div>
           </div>
         </section>
@@ -1698,7 +1840,7 @@ export default function App() {
             </div>
           ) : (
             <>
-              <ScrollArea className="flex-1 px-5 py-4">
+              <ScrollArea className="flex-1 min-h-0 px-5 py-4">
                 <div className="flex flex-col gap-4">
                   {cartItems.map((item, idx) => (
                     <div
