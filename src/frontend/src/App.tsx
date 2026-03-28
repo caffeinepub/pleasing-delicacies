@@ -973,6 +973,277 @@ function ProductCard({
 }
 
 // ─────────────────────────────────────────────
+// REVIEW FORM COMPONENT
+// ─────────────────────────────────────────────
+
+interface CustomerReview {
+  name: string;
+  location: string;
+  rating: number;
+  text: string;
+  date: string;
+}
+
+function ReviewForm() {
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [reviewText, setReviewText] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [reviews, setReviews] = useState<CustomerReview[]>([]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !reviewText.trim() || rating === 0) return;
+    const newReview: CustomerReview = {
+      name: name.trim(),
+      location: location.trim() || "India",
+      rating,
+      text: reviewText.trim(),
+      date: new Date().toLocaleDateString("en-IN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }),
+    };
+    setReviews((prev) => [newReview, ...prev]);
+    setName("");
+    setLocation("");
+    setRating(0);
+    setReviewText("");
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+  };
+
+  return (
+    <div className="mt-16">
+      {/* Share Your Experience */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="rounded-3xl p-8"
+        style={{ backgroundColor: "oklch(0.97 0.025 72)" }}
+        data-ocid="review.panel"
+      >
+        <h3
+          className="text-2xl font-display font-bold mb-6 text-center"
+          style={{ color: "oklch(0.38 0.1 52)" }}
+        >
+          Share Your Experience
+        </h3>
+
+        {submitted && (
+          <div
+            className="mb-6 p-4 rounded-xl text-center font-semibold"
+            style={{
+              backgroundColor: "oklch(0.88 0.08 145)",
+              color: "oklch(0.3 0.1 145)",
+            }}
+            data-ocid="review.success_state"
+          >
+            🙏 Thank you for your review! We appreciate your feedback.
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label
+                htmlFor="review-name"
+                className="block text-sm font-semibold mb-1"
+                style={{ color: "oklch(0.45 0.12 55)" }}
+              >
+                Your Name *
+              </label>
+              <input
+                id="review-name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="e.g. Priya Sharma"
+                required
+                className="w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2"
+                style={{
+                  borderColor: "oklch(0.82 0.06 60)",
+                  backgroundColor: "white",
+                }}
+                data-ocid="review.input"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="review-location"
+                className="block text-sm font-semibold mb-1"
+                style={{ color: "oklch(0.45 0.12 55)" }}
+              >
+                Location (optional)
+              </label>
+              <input
+                id="review-location"
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="e.g. Bangalore"
+                className="w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2"
+                style={{
+                  borderColor: "oklch(0.82 0.06 60)",
+                  backgroundColor: "white",
+                }}
+                data-ocid="review.input"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p
+              className="block text-sm font-semibold mb-2"
+              style={{ color: "oklch(0.45 0.12 55)" }}
+            >
+              Your Rating *
+            </p>
+            <div className="flex gap-1.5" data-ocid="review.toggle">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  onClick={() => setRating(star)}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(0)}
+                  className="focus:outline-none transition-transform hover:scale-110"
+                  aria-label={`Rate ${star} stars`}
+                >
+                  <Star
+                    className="w-8 h-8"
+                    style={{
+                      color:
+                        star <= (hoverRating || rating)
+                          ? "oklch(0.58 0.28 38)"
+                          : "oklch(0.82 0.06 60)",
+                      fill:
+                        star <= (hoverRating || rating)
+                          ? "oklch(0.58 0.28 38)"
+                          : "transparent",
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="review-text"
+              className="block text-sm font-semibold mb-1"
+              style={{ color: "oklch(0.45 0.12 55)" }}
+            >
+              Your Review *
+            </label>
+            <textarea
+              id="review-text"
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
+              placeholder="Tell us about your experience with our products..."
+              rows={4}
+              required
+              className="w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 resize-none"
+              style={{
+                borderColor: "oklch(0.82 0.06 60)",
+                backgroundColor: "white",
+              }}
+              data-ocid="review.textarea"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full sm:w-auto px-8 py-3 rounded-full font-bold text-white text-sm transition-all hover:opacity-90 active:scale-95"
+            style={{ backgroundColor: "oklch(0.58 0.28 38)" }}
+            data-ocid="review.submit_button"
+          >
+            Submit Review
+          </button>
+        </form>
+      </motion.div>
+
+      {/* Submitted Reviews */}
+      {reviews.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mt-10"
+          data-ocid="review.list"
+        >
+          <h4
+            className="text-xl font-display font-bold mb-6 text-center"
+            style={{ color: "oklch(0.38 0.1 52)" }}
+          >
+            Recent Customer Reviews
+          </h4>
+          <div className="grid md:grid-cols-3 gap-6">
+            {reviews.map((r, i) => (
+              <motion.div
+                key={`${r.name}-${r.date}-${i}`}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: i * 0.08 }}
+                className="relative p-6 rounded-2xl flex flex-col gap-4"
+                style={{ backgroundColor: "oklch(0.97 0.025 72)" }}
+                data-ocid={`review.item.${i + 1}`}
+              >
+                <span
+                  className="absolute top-4 right-5 font-display text-6xl leading-none opacity-15"
+                  style={{ color: "oklch(0.6 0.17 55)" }}
+                  aria-hidden
+                >
+                  &ldquo;
+                </span>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: r.rating }, (_, j) => j + 1).map(
+                    (star) => (
+                      <Star
+                        key={`rating-star-${star}`}
+                        className="w-4 h-4 fill-current"
+                        style={{ color: "oklch(0.58 0.28 38)" }}
+                      />
+                    ),
+                  )}
+                </div>
+                <p className="text-sm sm:text-base text-foreground leading-relaxed flex-1">
+                  &ldquo;{r.text}&rdquo;
+                </p>
+                <div className="flex items-center gap-3 pt-2 border-t border-border">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-sm"
+                    style={{
+                      backgroundColor: "oklch(0.58 0.28 38 / 0.2)",
+                      color: "oklch(0.38 0.1 52)",
+                    }}
+                  >
+                    {r.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-foreground">
+                      {r.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {r.location} · {r.date}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
 // MAIN APP
 // ─────────────────────────────────────────────
 
@@ -1425,8 +1696,8 @@ export default function App() {
               className="mt-12 rounded-3xl overflow-hidden shadow-xl"
             >
               <img
-                src="/assets/generated/our-story-elderly-woman.dim_800x600.jpg"
-                alt="Traditional elderly woman lovingly preparing laddus by hand"
+                src="/assets/generated/our-story-cartoon-grandma.dim_800x600.jpg"
+                alt="Cartoon of a traditional elderly grandmother lovingly making laddus"
                 className="w-full object-cover"
                 style={{ maxHeight: "420px" }}
               />
@@ -1682,6 +1953,9 @@ export default function App() {
                 </motion.div>
               ))}
             </div>
+
+            {/* REVIEW SUBMISSION FORM */}
+            <ReviewForm />
           </div>
         </section>
 
