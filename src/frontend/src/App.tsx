@@ -711,6 +711,297 @@ const TESTIMONIALS = [
 
 // ─────────────────────────────────────────────
 // PRICING BADGE
+
+// ─────────────────────────────────────────────
+// LADDU CUSTOMIZER
+// ─────────────────────────────────────────────
+
+interface CustomizerSelection {
+  productName: string;
+  weight: string;
+  price: number;
+  image?: string;
+}
+
+function LadduCustomizer({
+  laddus,
+  addToCart,
+}: {
+  laddus: ProductData[];
+  addToCart: (item: CartItem) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [selections, setSelections] = useState<
+    Record<string, CustomizerSelection>
+  >({});
+
+  const toggleLaddu = (product: ProductData) => {
+    setSelections((prev) => {
+      if (prev[product.name]) {
+        const next = { ...prev };
+        delete next[product.name];
+        return next;
+      }
+      const defaultTier = product.pricing[0];
+      return {
+        ...prev,
+        [product.name]: {
+          productName: product.name,
+          weight: defaultTier.weight,
+          price: defaultTier.price,
+          image: product.image,
+        },
+      };
+    });
+  };
+
+  const setWeight = (product: ProductData, weight: string) => {
+    const tier = product.pricing.find((t) => t.weight === weight);
+    if (!tier) return;
+    setSelections((prev) => ({
+      ...prev,
+      [product.name]: {
+        ...prev[product.name],
+        weight,
+        price: tier.price,
+      },
+    }));
+  };
+
+  const selectedEntries = Object.values(selections);
+  const total = selectedEntries.reduce((sum, s) => sum + s.price, 0);
+
+  const handleAddAll = () => {
+    for (const s of selectedEntries) {
+      addToCart({
+        id: `${s.productName}-${s.weight}`,
+        name: s.productName,
+        weightOption: s.weight,
+        price: s.price,
+        quantity: 1,
+      });
+    }
+    setSelections({});
+    setOpen(false);
+  };
+
+  return (
+    <div className="mb-6">
+      {/* Toggle button */}
+      <button
+        data-ocid="laddu_customizer.open_modal_button"
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between px-5 py-4 rounded-2xl font-bold text-white shadow-lg transition-all active:scale-95"
+        style={{
+          background:
+            "linear-gradient(135deg, oklch(0.65 0.18 50), oklch(0.55 0.22 28))",
+        }}
+      >
+        <span className="flex items-center gap-2 text-base sm:text-lg">
+          🎁 Customize Your Laddu Box
+        </span>
+        <span className="flex items-center gap-1 text-sm font-normal opacity-90">
+          {selectedEntries.length > 0 && (
+            <span className="bg-white text-orange-600 rounded-full px-2 py-0.5 text-xs font-bold mr-1">
+              {selectedEntries.length} selected
+            </span>
+          )}
+          {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+        </span>
+      </button>
+
+      {/* Expandable panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
+          >
+            <div
+              className="mt-3 rounded-2xl p-4 border-2"
+              style={{
+                background: "oklch(0.98 0.02 75)",
+                borderColor: "oklch(0.75 0.14 50)",
+              }}
+            >
+              <p
+                className="text-sm font-semibold mb-3"
+                style={{ color: "oklch(0.45 0.15 40)" }}
+              >
+                Select laddus and choose your preferred weight:
+              </p>
+
+              {/* Laddu selection grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                {laddus.map((product) => {
+                  const selected = !!selections[product.name];
+                  const sel = selections[product.name];
+                  return (
+                    <button
+                      key={product.name}
+                      type="button"
+                      data-ocid="laddu_customizer.item.1"
+                      onClick={() => toggleLaddu(product)}
+                      className="rounded-xl border-2 cursor-pointer transition-all p-3 flex gap-3 items-start text-left w-full bg-transparent"
+                      style={{
+                        borderColor: selected
+                          ? "oklch(0.65 0.18 50)"
+                          : "oklch(0.85 0.06 75)",
+                        background: selected ? "oklch(0.96 0.05 65)" : "white",
+                        boxShadow: selected
+                          ? "0 0 0 2px oklch(0.65 0.18 50 / 0.3)"
+                          : "none",
+                      }}
+                    >
+                      {/* Checkbox indicator */}
+                      <div
+                        className="flex-shrink-0 w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center"
+                        style={{
+                          borderColor: selected
+                            ? "oklch(0.65 0.18 50)"
+                            : "oklch(0.75 0.06 75)",
+                          background: selected
+                            ? "oklch(0.65 0.18 50)"
+                            : "white",
+                        }}
+                      >
+                        {selected && (
+                          <span className="text-white text-xs font-bold">
+                            ✓
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Thumbnail */}
+                      {product.image && (
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-12 h-12 rounded-lg object-cover flex-shrink-0 pointer-events-none"
+                        />
+                      )}
+
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <p
+                          className="font-semibold text-sm leading-tight"
+                          style={{ color: "oklch(0.3 0.12 40)" }}
+                        >
+                          {product.name}
+                        </p>
+                        {selected && (
+                          <div
+                            className="mt-2"
+                            onClick={(e) => e.stopPropagation()}
+                            onKeyDown={(e) => e.stopPropagation()}
+                          >
+                            <label
+                              htmlFor={`weight-${product.name}`}
+                              className="text-xs font-medium"
+                              style={{ color: "oklch(0.5 0.1 40)" }}
+                            >
+                              Weight:
+                            </label>
+                            <select
+                              id={`weight-${product.name}`}
+                              data-ocid="laddu_customizer.select"
+                              className="mt-1 w-full text-sm rounded-lg border px-2 py-1 font-medium focus:outline-none"
+                              style={{
+                                borderColor: "oklch(0.65 0.18 50)",
+                                color: "oklch(0.35 0.15 40)",
+                                background: "white",
+                              }}
+                              value={sel.weight}
+                              onChange={(e) =>
+                                setWeight(product, e.target.value)
+                              }
+                            >
+                              {product.pricing.map((tier) => (
+                                <option key={tier.weight} value={tier.weight}>
+                                  {tier.weight} – ₹{tier.price}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Summary */}
+              {selectedEntries.length === 0 ? (
+                <p
+                  className="text-center text-sm italic py-2"
+                  style={{ color: "oklch(0.6 0.08 50)" }}
+                >
+                  Select laddus above to build your custom box
+                </p>
+              ) : (
+                <div
+                  className="rounded-xl p-3 mt-1"
+                  style={{
+                    background: "oklch(0.95 0.06 60)",
+                    border: "1px solid oklch(0.8 0.12 50)",
+                  }}
+                >
+                  <p
+                    className="font-bold text-sm mb-2"
+                    style={{ color: "oklch(0.35 0.15 40)" }}
+                  >
+                    Your Custom Box:
+                  </p>
+                  <ul className="space-y-1 mb-3">
+                    {selectedEntries.map((s) => (
+                      <li
+                        key={s.productName}
+                        className="flex justify-between text-sm"
+                        style={{ color: "oklch(0.4 0.12 40)" }}
+                      >
+                        <span>
+                          {s.productName} ({s.weight})
+                        </span>
+                        <span className="font-semibold">₹{s.price}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div
+                    className="flex justify-between font-bold text-base border-t pt-2"
+                    style={{
+                      borderColor: "oklch(0.8 0.1 50)",
+                      color: "oklch(0.3 0.15 40)",
+                    }}
+                  >
+                    <span>Total</span>
+                    <span>₹{total}</span>
+                  </div>
+                  <button
+                    data-ocid="laddu_customizer.primary_button"
+                    type="button"
+                    onClick={handleAddAll}
+                    className="mt-3 w-full py-3 rounded-xl font-bold text-white text-base shadow-md active:scale-95 transition-transform"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, oklch(0.65 0.18 50), oklch(0.55 0.22 28))",
+                    }}
+                  >
+                    🛒 Add All to Cart
+                  </button>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 // ─────────────────────────────────────────────
 
 function PricingDisplay({ pricing }: { pricing: PricingTier[] }) {
@@ -984,14 +1275,15 @@ interface CustomerReview {
   date: string;
 }
 
-function ReviewForm() {
+function ReviewForm({
+  onAddReview,
+}: { onAddReview: (review: CustomerReview) => void }) {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [reviews, setReviews] = useState<CustomerReview[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1007,7 +1299,7 @@ function ReviewForm() {
         day: "numeric",
       }),
     };
-    setReviews((prev) => [newReview, ...prev]);
+    onAddReview(newReview);
     setName("");
     setLocation("");
     setRating(0);
@@ -1169,76 +1461,6 @@ function ReviewForm() {
       </motion.div>
 
       {/* Submitted Reviews */}
-      {reviews.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mt-10"
-          data-ocid="review.list"
-        >
-          <h4
-            className="text-xl font-display font-bold mb-6 text-center"
-            style={{ color: "oklch(0.38 0.1 52)" }}
-          >
-            Recent Customer Reviews
-          </h4>
-          <div className="grid md:grid-cols-3 gap-6">
-            {reviews.map((r, i) => (
-              <motion.div
-                key={`${r.name}-${r.date}-${i}`}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: i * 0.08 }}
-                className="relative p-6 rounded-2xl flex flex-col gap-4"
-                style={{ backgroundColor: "oklch(0.97 0.025 72)" }}
-                data-ocid={`review.item.${i + 1}`}
-              >
-                <span
-                  className="absolute top-4 right-5 font-display text-6xl leading-none opacity-15"
-                  style={{ color: "oklch(0.6 0.17 55)" }}
-                  aria-hidden
-                >
-                  &ldquo;
-                </span>
-                <div className="flex gap-0.5">
-                  {Array.from({ length: r.rating }, (_, j) => j + 1).map(
-                    (star) => (
-                      <Star
-                        key={`rating-star-${star}`}
-                        className="w-4 h-4 fill-current"
-                        style={{ color: "oklch(0.58 0.28 38)" }}
-                      />
-                    ),
-                  )}
-                </div>
-                <p className="text-sm sm:text-base text-foreground leading-relaxed flex-1">
-                  &ldquo;{r.text}&rdquo;
-                </p>
-                <div className="flex items-center gap-3 pt-2 border-t border-border">
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-sm"
-                    style={{
-                      backgroundColor: "oklch(0.58 0.28 38 / 0.2)",
-                      color: "oklch(0.38 0.1 52)",
-                    }}
-                  >
-                    {r.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-foreground">
-                      {r.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {r.location} · {r.date}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      )}
     </div>
   );
 }
@@ -1252,6 +1474,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [customerReviews, setCustomerReviews] = useState<CustomerReview[]>([]);
   const { data: backendProducts } = useGetAllProducts();
 
   const addToCart = (item: CartItem) => {
@@ -1696,10 +1919,13 @@ export default function App() {
               className="mt-12 rounded-3xl overflow-hidden shadow-xl"
             >
               <img
-                src="/assets/generated/our-story-cartoon-grandma.dim_800x600.jpg"
+                src="/assets/generated/our-story-cartoon-grandma.dim_600x800.jpg"
                 alt="Cartoon of a traditional elderly grandmother lovingly making laddus"
-                className="w-full object-cover"
-                style={{ maxHeight: "420px" }}
+                className="w-full object-contain"
+                style={{
+                  maxHeight: "520px",
+                  backgroundColor: "oklch(0.97 0.03 72)",
+                }}
               />
               <div
                 className="py-4 px-6 text-center text-sm font-medium italic"
@@ -1829,6 +2055,7 @@ export default function App() {
               </TabsList>
 
               <TabsContent value="laddus">
+                <LadduCustomizer laddus={laddus} addToCart={addToCart} />
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   {laddus.map((product, i) => (
                     <ProductCard
@@ -1902,9 +2129,9 @@ export default function App() {
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              {TESTIMONIALS.map((t, i) => (
+              {[...TESTIMONIALS, ...customerReviews].map((t, i) => (
                 <motion.div
-                  key={t.name}
+                  key={`${t.name}-${i}`}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -1955,7 +2182,9 @@ export default function App() {
             </div>
 
             {/* REVIEW SUBMISSION FORM */}
-            <ReviewForm />
+            <ReviewForm
+              onAddReview={(r) => setCustomerReviews((prev) => [r, ...prev])}
+            />
           </div>
         </section>
 
