@@ -1,0 +1,22 @@
+// Version: 1.0.0
+type Category__164941945 = {#chutneyPowder; #laddu};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Product__853085059 =
+  {
+    category : Category__164941945;
+    description : Text;
+    ingredients : [Text];
+    name : Text;
+    nutritionalBenefits : [Text];
+    shelfLife : Text;
+    usageSuggestions : [Text]
+  };
+actor {
+  stable products :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Product__853085059]];
+      var elementIndex : Nat__490723111
+    }
+};

@@ -713,29 +713,34 @@ const TESTIMONIALS = [
 // PRICING BADGE
 
 // ─────────────────────────────────────────────
-// LADDU CUSTOMIZER
+// BUILD YOUR BOX — Universal item selector
 // ─────────────────────────────────────────────
 
-interface CustomizerSelection {
+interface BoxSelection {
   productName: string;
   weight: string;
   price: number;
   image?: string;
+  category: ProductCategory;
 }
 
-function LadduCustomizer({
+function BuildYourBox({
   laddus,
+  chutneys,
+  savouries,
   addToCart,
 }: {
   laddus: ProductData[];
+  chutneys: ProductData[];
+  savouries: ProductData[];
   addToCart: (item: CartItem) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const [selections, setSelections] = useState<
-    Record<string, CustomizerSelection>
-  >({});
+  const [selections, setSelections] = useState<Record<string, BoxSelection>>(
+    {},
+  );
 
-  const toggleLaddu = (product: ProductData) => {
+  const toggleProduct = (product: ProductData) => {
     setSelections((prev) => {
       if (prev[product.name]) {
         const next = { ...prev };
@@ -750,6 +755,7 @@ function LadduCustomizer({
           weight: defaultTier.weight,
           price: defaultTier.price,
           image: product.image,
+          category: product.category,
         },
       };
     });
@@ -760,11 +766,7 @@ function LadduCustomizer({
     if (!tier) return;
     setSelections((prev) => ({
       ...prev,
-      [product.name]: {
-        ...prev[product.name],
-        weight,
-        price: tier.price,
-      },
+      [product.name]: { ...prev[product.name], weight, price: tier.price },
     }));
   };
 
@@ -785,26 +787,129 @@ function LadduCustomizer({
     setOpen(false);
   };
 
+  const renderProductItem = (product: ProductData) => {
+    const selected = !!selections[product.name];
+    const sel = selections[product.name];
+    const hasWeightChoice = product.pricing.length > 1;
+    return (
+      <button
+        key={product.name}
+        type="button"
+        data-ocid="build_your_box.item"
+        onClick={() => toggleProduct(product)}
+        className="rounded-xl border-2 cursor-pointer transition-all p-3 flex gap-3 items-start text-left w-full bg-transparent"
+        style={{
+          borderColor: selected ? "oklch(0.65 0.18 50)" : "oklch(0.85 0.06 75)",
+          background: selected ? "oklch(0.96 0.05 65)" : "white",
+          boxShadow: selected ? "0 0 0 2px oklch(0.65 0.18 50 / 0.3)" : "none",
+        }}
+      >
+        {/* Checkbox */}
+        <div
+          className="flex-shrink-0 w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center"
+          style={{
+            borderColor: selected
+              ? "oklch(0.65 0.18 50)"
+              : "oklch(0.75 0.06 75)",
+            background: selected ? "oklch(0.65 0.18 50)" : "white",
+          }}
+        >
+          {selected && <span className="text-white text-xs font-bold">✓</span>}
+        </div>
+
+        {/* Thumbnail */}
+        {product.image && (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-12 h-12 rounded-lg object-cover flex-shrink-0 pointer-events-none"
+          />
+        )}
+
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+          <p
+            className="font-semibold text-sm leading-tight"
+            style={{ color: "oklch(0.3 0.12 40)" }}
+          >
+            {product.name}
+          </p>
+          {!selected && (
+            <p
+              className="text-xs mt-0.5"
+              style={{ color: "oklch(0.55 0.08 50)" }}
+            >
+              {product.pricing
+                .map((t) => `${t.weight} ₹${t.price}`)
+                .join(" · ")}
+            </p>
+          )}
+          {selected && hasWeightChoice && (
+            <div
+              className="mt-2"
+              onClick={(e) => e.stopPropagation()}
+              onKeyDown={(e) => e.stopPropagation()}
+            >
+              <label
+                htmlFor={`byb-weight-${product.name}`}
+                className="text-xs font-medium"
+                style={{ color: "oklch(0.5 0.1 40)" }}
+              >
+                Weight:
+              </label>
+              <select
+                id={`byb-weight-${product.name}`}
+                data-ocid="build_your_box.weight_select"
+                className="mt-1 w-full text-sm rounded-lg border px-2 py-1 font-medium focus:outline-none"
+                style={{
+                  borderColor: "oklch(0.65 0.18 50)",
+                  color: "oklch(0.35 0.15 40)",
+                  background: "white",
+                }}
+                value={sel.weight}
+                onChange={(e) => setWeight(product, e.target.value)}
+              >
+                {product.pricing.map((tier) => (
+                  <option key={tier.weight} value={tier.weight}>
+                    {tier.weight} – ₹{tier.price}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {selected && !hasWeightChoice && (
+            <p
+              className="text-xs mt-1 font-semibold"
+              style={{ color: "oklch(0.45 0.15 45)" }}
+            >
+              {sel.weight} — ₹{sel.price}
+            </p>
+          )}
+        </div>
+      </button>
+    );
+  };
+
   return (
     <div className="mb-6">
       {/* Toggle button */}
       <button
-        data-ocid="laddu_customizer.open_modal_button"
+        data-ocid="build_your_box.open_button"
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-center justify-between px-5 py-4 rounded-2xl font-bold text-white shadow-lg transition-all active:scale-95"
         style={{
           background:
-            "linear-gradient(135deg, oklch(0.65 0.18 50), oklch(0.55 0.22 28))",
+            "linear-gradient(135deg, oklch(0.58 0.28 38), oklch(0.45 0.22 28))",
         }}
       >
         <span className="flex items-center gap-2 text-base sm:text-lg">
-          🎁 Customize Your Laddu Box
+          🧺 Build Your Box — Mix &amp; Match
         </span>
         <span className="flex items-center gap-1 text-sm font-normal opacity-90">
           {selectedEntries.length > 0 && (
             <span className="bg-white text-orange-600 rounded-full px-2 py-0.5 text-xs font-bold mr-1">
-              {selectedEntries.length} selected
+              {selectedEntries.length} selected · ₹{total}
             </span>
           )}
           {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
@@ -829,109 +934,96 @@ function LadduCustomizer({
               }}
             >
               <p
-                className="text-sm font-semibold mb-3"
+                className="text-sm font-semibold mb-4"
                 style={{ color: "oklch(0.45 0.15 40)" }}
               >
-                Select laddus and choose your preferred weight:
+                Select items from any category. Choose your preferred weight for
+                laddus.
               </p>
 
-              {/* Laddu selection grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                {laddus.map((product) => {
-                  const selected = !!selections[product.name];
-                  const sel = selections[product.name];
-                  return (
-                    <button
-                      key={product.name}
-                      type="button"
-                      data-ocid="laddu_customizer.item.1"
-                      onClick={() => toggleLaddu(product)}
-                      className="rounded-xl border-2 cursor-pointer transition-all p-3 flex gap-3 items-start text-left w-full bg-transparent"
-                      style={{
-                        borderColor: selected
-                          ? "oklch(0.65 0.18 50)"
-                          : "oklch(0.85 0.06 75)",
-                        background: selected ? "oklch(0.96 0.05 65)" : "white",
-                        boxShadow: selected
-                          ? "0 0 0 2px oklch(0.65 0.18 50 / 0.3)"
-                          : "none",
-                      }}
-                    >
-                      {/* Checkbox indicator */}
-                      <div
-                        className="flex-shrink-0 w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center"
-                        style={{
-                          borderColor: selected
-                            ? "oklch(0.65 0.18 50)"
-                            : "oklch(0.75 0.06 75)",
-                          background: selected
-                            ? "oklch(0.65 0.18 50)"
-                            : "white",
-                        }}
-                      >
-                        {selected && (
-                          <span className="text-white text-xs font-bold">
-                            ✓
-                          </span>
-                        )}
-                      </div>
+              {/* Laddus */}
+              <div className="mb-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-base">🍬</span>
+                  <p
+                    className="text-sm font-bold uppercase tracking-wide"
+                    style={{ color: "oklch(0.38 0.2 28)" }}
+                  >
+                    Laddus
+                  </p>
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full font-medium"
+                    style={{
+                      backgroundColor: "oklch(0.58 0.28 38 / 0.12)",
+                      color: "oklch(0.4 0.15 40)",
+                    }}
+                  >
+                    Choose weight per item
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {laddus.map(renderProductItem)}
+                </div>
+              </div>
 
-                      {/* Thumbnail */}
-                      {product.image && (
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-12 h-12 rounded-lg object-cover flex-shrink-0 pointer-events-none"
-                        />
-                      )}
+              <Separator
+                className="my-4"
+                style={{ backgroundColor: "oklch(0.82 0.08 65)" }}
+              />
 
-                      {/* Info */}
-                      <div className="flex-1 min-w-0">
-                        <p
-                          className="font-semibold text-sm leading-tight"
-                          style={{ color: "oklch(0.3 0.12 40)" }}
-                        >
-                          {product.name}
-                        </p>
-                        {selected && (
-                          <div
-                            className="mt-2"
-                            onClick={(e) => e.stopPropagation()}
-                            onKeyDown={(e) => e.stopPropagation()}
-                          >
-                            <label
-                              htmlFor={`weight-${product.name}`}
-                              className="text-xs font-medium"
-                              style={{ color: "oklch(0.5 0.1 40)" }}
-                            >
-                              Weight:
-                            </label>
-                            <select
-                              id={`weight-${product.name}`}
-                              data-ocid="laddu_customizer.select"
-                              className="mt-1 w-full text-sm rounded-lg border px-2 py-1 font-medium focus:outline-none"
-                              style={{
-                                borderColor: "oklch(0.65 0.18 50)",
-                                color: "oklch(0.35 0.15 40)",
-                                background: "white",
-                              }}
-                              value={sel.weight}
-                              onChange={(e) =>
-                                setWeight(product, e.target.value)
-                              }
-                            >
-                              {product.pricing.map((tier) => (
-                                <option key={tier.weight} value={tier.weight}>
-                                  {tier.weight} – ₹{tier.price}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
+              {/* Chutney Powders */}
+              <div className="mb-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-base">🌿</span>
+                  <p
+                    className="text-sm font-bold uppercase tracking-wide"
+                    style={{ color: "oklch(0.38 0.2 28)" }}
+                  >
+                    Chutney Powders
+                  </p>
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full font-medium"
+                    style={{
+                      backgroundColor: "oklch(0.58 0.28 38 / 0.12)",
+                      color: "oklch(0.4 0.15 40)",
+                    }}
+                  >
+                    100g · ₹95 each
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {chutneys.map(renderProductItem)}
+                </div>
+              </div>
+
+              <Separator
+                className="my-4"
+                style={{ backgroundColor: "oklch(0.82 0.08 65)" }}
+              />
+
+              {/* Savouries */}
+              <div className="mb-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-base">🥨</span>
+                  <p
+                    className="text-sm font-bold uppercase tracking-wide"
+                    style={{ color: "oklch(0.38 0.2 28)" }}
+                  >
+                    Savouries
+                  </p>
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full font-medium"
+                    style={{
+                      backgroundColor: "oklch(0.58 0.28 38 / 0.12)",
+                      color: "oklch(0.4 0.15 40)",
+                    }}
+                  >
+                    Fixed size
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {savouries.map(renderProductItem)}
+                </div>
               </div>
 
               {/* Summary */}
@@ -940,11 +1032,11 @@ function LadduCustomizer({
                   className="text-center text-sm italic py-2"
                   style={{ color: "oklch(0.6 0.08 50)" }}
                 >
-                  Select laddus above to build your custom box
+                  Tap any item above to add it to your box
                 </p>
               ) : (
                 <div
-                  className="rounded-xl p-3 mt-1"
+                  className="rounded-xl p-3 mt-2"
                   style={{
                     background: "oklch(0.95 0.06 60)",
                     border: "1px solid oklch(0.8 0.12 50)",
@@ -954,7 +1046,7 @@ function LadduCustomizer({
                     className="font-bold text-sm mb-2"
                     style={{ color: "oklch(0.35 0.15 40)" }}
                   >
-                    Your Custom Box:
+                    Your Box Summary:
                   </p>
                   <ul className="space-y-1 mb-3">
                     {selectedEntries.map((s) => (
@@ -963,10 +1055,13 @@ function LadduCustomizer({
                         className="flex justify-between text-sm"
                         style={{ color: "oklch(0.4 0.12 40)" }}
                       >
-                        <span>
-                          {s.productName} ({s.weight})
+                        <span className="truncate mr-2">
+                          {s.productName}{" "}
+                          <span className="opacity-70">({s.weight})</span>
                         </span>
-                        <span className="font-semibold">₹{s.price}</span>
+                        <span className="font-semibold shrink-0">
+                          ₹{s.price}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -977,17 +1072,20 @@ function LadduCustomizer({
                       color: "oklch(0.3 0.15 40)",
                     }}
                   >
-                    <span>Total</span>
+                    <span>
+                      Total ({selectedEntries.length} item
+                      {selectedEntries.length !== 1 ? "s" : ""})
+                    </span>
                     <span>₹{total}</span>
                   </div>
                   <button
-                    data-ocid="laddu_customizer.primary_button"
+                    data-ocid="build_your_box.add_all_button"
                     type="button"
                     onClick={handleAddAll}
                     className="mt-3 w-full py-3 rounded-xl font-bold text-white text-base shadow-md active:scale-95 transition-transform"
                     style={{
                       background:
-                        "linear-gradient(135deg, oklch(0.65 0.18 50), oklch(0.55 0.22 28))",
+                        "linear-gradient(135deg, oklch(0.58 0.28 38), oklch(0.45 0.22 28))",
                     }}
                   >
                     🛒 Add All to Cart
@@ -1260,6 +1358,341 @@ function ProductCard({
         </button>
       </div>
     </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// SPECIAL OCCASIONS
+// ─────────────────────────────────────────────
+
+interface OccasionBundle {
+  tier: "Standard" | "Premium";
+  items: string;
+  price: number;
+}
+
+interface OccasionData {
+  id: string;
+  title: string;
+  subtitle: string;
+  emoji: string;
+  gradient: string;
+  bundles: OccasionBundle[];
+}
+
+const OCCASIONS: OccasionData[] = [
+  {
+    id: "corporate",
+    title: "Corporate Gifting",
+    subtitle: "Diwali · Dasara · New Year",
+    emoji: "🪔",
+    gradient:
+      "linear-gradient(135deg, oklch(0.55 0.22 48), oklch(0.45 0.18 28))",
+    bundles: [
+      {
+        tier: "Standard",
+        items: "Til Laddu 250g + Urad Dal Laddu 250g + Groundnut Chutney 100g",
+        price: 515,
+      },
+      {
+        tier: "Premium",
+        items:
+          "Gond & Nuts Laddu 250g + Dry Fruits Laddu 250g + Ragi & Nuts Laddu 250g + Moringa Chutney 100g",
+        price: 1195,
+      },
+    ],
+  },
+  {
+    id: "marriage",
+    title: "Marriage Celebrations",
+    subtitle: "Bulk orders for weddings & receptions",
+    emoji: "💐",
+    gradient:
+      "linear-gradient(135deg, oklch(0.48 0.22 20), oklch(0.58 0.24 42))",
+    bundles: [
+      {
+        tier: "Standard",
+        items:
+          "Dry Fruits Laddu 500g + Flax Seeds & Nuts Laddu 500g + Wheat & Nuts Laddu 500g",
+        price: 2280,
+      },
+      {
+        tier: "Premium",
+        items:
+          "Dry Fruits Laddu 1kg + Gond & Nuts Laddu 1kg + Wheat & Nuts Laddu 1kg",
+        price: 4100,
+      },
+    ],
+  },
+  {
+    id: "birthday",
+    title: "Birthday Parties",
+    subtitle: "Make every birthday sweeter",
+    emoji: "🎂",
+    gradient:
+      "linear-gradient(135deg, oklch(0.60 0.24 55), oklch(0.50 0.20 30))",
+    bundles: [
+      {
+        tier: "Standard",
+        items:
+          "Til Laddu 500g + Peri Peri Makhana 100g + Pepper Butter Makhana 100g",
+        price: 1050,
+      },
+      {
+        tier: "Premium",
+        items:
+          "Urad Dal Laddu 500g + Dry Fruits Laddu 500g + Peri Peri Makhana 100g + Churmuri 400g",
+        price: 1870,
+      },
+    ],
+  },
+  {
+    id: "anniversary",
+    title: "Anniversaries",
+    subtitle: "Celebrate love with traditional sweets",
+    emoji: "❤️",
+    gradient:
+      "linear-gradient(135deg, oklch(0.50 0.25 25), oklch(0.55 0.20 40))",
+    bundles: [
+      {
+        tier: "Standard",
+        items:
+          "Dry Fruits Laddu 500g + Ragi & Nuts Laddu 500g + Curry Leaves Chutney 100g",
+        price: 1175,
+      },
+      {
+        tier: "Premium",
+        items:
+          "Dry Fruits Laddu 1kg + Flax Seeds & Nuts Laddu 1kg + Moringa Chutney 100g",
+        price: 2795,
+      },
+    ],
+  },
+];
+
+function BundleCard({
+  bundle,
+  occasionTitle,
+  onAddToCart,
+  occasionId,
+}: {
+  bundle: OccasionBundle;
+  occasionTitle: string;
+  onAddToCart: (item: CartItem) => void;
+  occasionId: string;
+}) {
+  const isPremium = bundle.tier === "Premium";
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
+      className="rounded-2xl overflow-hidden border-2 flex flex-col shadow-lg"
+      style={{
+        borderColor: isPremium ? "oklch(0.65 0.22 50)" : "oklch(0.75 0.14 58)",
+        backgroundColor: isPremium
+          ? "oklch(0.98 0.035 70)"
+          : "oklch(0.99 0.015 72)",
+      }}
+    >
+      {/* Tier badge header */}
+      <div
+        className="px-4 py-2 flex items-center justify-between"
+        style={{
+          background: isPremium
+            ? "linear-gradient(90deg, oklch(0.55 0.22 48), oklch(0.45 0.18 28))"
+            : "linear-gradient(90deg, oklch(0.70 0.16 60), oklch(0.62 0.18 48))",
+        }}
+      >
+        <span className="text-xs font-bold uppercase tracking-widest text-white/90">
+          {bundle.tier} Bundle
+        </span>
+        {isPremium && (
+          <span className="text-xs text-white/80 flex items-center gap-1">
+            <Sparkles className="w-3 h-3" /> Best Value
+          </span>
+        )}
+      </div>
+
+      <div className="p-4 flex flex-col gap-3 flex-1">
+        {/* Items list */}
+        <ul className="space-y-1.5">
+          {bundle.items.split(" + ").map((item) => (
+            <li
+              key={item}
+              className="flex items-start gap-2 text-sm"
+              style={{ color: "oklch(0.3 0.08 45)" }}
+            >
+              <span
+                className="mt-1 w-1.5 h-1.5 rounded-full shrink-0"
+                style={{
+                  backgroundColor: isPremium
+                    ? "oklch(0.55 0.22 48)"
+                    : "oklch(0.65 0.18 55)",
+                }}
+              />
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        {/* Price */}
+        <div className="flex items-baseline gap-1 mt-1">
+          <span
+            className="text-2xl font-bold font-display"
+            style={{ color: "oklch(0.38 0.15 42)" }}
+          >
+            ₹{bundle.price}
+          </span>
+          <span className="text-xs" style={{ color: "oklch(0.55 0.08 50)" }}>
+            per pack
+          </span>
+        </div>
+      </div>
+
+      <div className="px-4 pb-4">
+        <button
+          type="button"
+          data-ocid={`occasions.bundle.${occasionId}.${bundle.tier.toLowerCase()}`}
+          onClick={() =>
+            onAddToCart({
+              id: `bundle-${occasionId}-${bundle.tier}`,
+              name: `${occasionTitle} — ${bundle.tier} Bundle`,
+              weightOption: bundle.tier,
+              price: bundle.price,
+              quantity: 1,
+            })
+          }
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.02] active:scale-95 text-white"
+          style={{
+            background: isPremium
+              ? "linear-gradient(135deg, oklch(0.55 0.22 48), oklch(0.45 0.18 28))"
+              : "linear-gradient(135deg, oklch(0.65 0.20 52), oklch(0.58 0.22 40))",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+          }}
+        >
+          <ShoppingCart className="w-4 h-4" />
+          Add to Cart
+        </button>
+      </div>
+    </motion.div>
+  );
+}
+
+function SpecialOccasionsTab({
+  onAddToCart,
+}: { onAddToCart: (item: CartItem) => void }) {
+  return (
+    <div className="space-y-10">
+      {/* Intro banner */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="rounded-2xl p-5 text-center"
+        style={{
+          background:
+            "linear-gradient(135deg, oklch(0.55 0.22 48 / 0.15), oklch(0.45 0.18 28 / 0.10))",
+          border: "1px solid oklch(0.70 0.16 55 / 0.4)",
+        }}
+      >
+        <p
+          className="font-display text-xl sm:text-2xl font-bold mb-2"
+          style={{ color: "oklch(0.35 0.15 40)" }}
+        >
+          🎁 Special Occasion Gift Boxes
+        </p>
+        <p className="text-sm" style={{ color: "oklch(0.45 0.10 48)" }}>
+          Thoughtfully curated bundles for every celebration — corporate,
+          weddings, birthdays and more.
+          <br className="hidden sm:block" />
+          <span className="font-semibold">Bulk orders available.</span> Contact
+          us on WhatsApp for custom quantities.
+        </p>
+      </motion.div>
+
+      {/* Occasion sections */}
+      {OCCASIONS.map((occasion, idx) => (
+        <motion.div
+          key={occasion.id}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: idx * 0.08 }}
+          className="rounded-3xl overflow-hidden border border-border shadow-md"
+          style={{ backgroundColor: "oklch(0.98 0.02 72)" }}
+        >
+          {/* Occasion header */}
+          <div
+            className="px-6 py-5 flex items-center justify-between gap-4"
+            style={{ background: occasion.gradient }}
+          >
+            <div className="flex items-center gap-3">
+              <span
+                className="text-4xl leading-none"
+                role="img"
+                aria-label={occasion.title}
+              >
+                {occasion.emoji}
+              </span>
+              <div>
+                <h3 className="font-display text-xl font-bold text-white leading-tight">
+                  {occasion.title}
+                </h3>
+                <p className="text-sm text-white/80 mt-0.5">
+                  {occasion.subtitle}
+                </p>
+              </div>
+            </div>
+            <div
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.2)",
+                color: "white",
+              }}
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              Bulk orders available
+            </div>
+          </div>
+
+          {/* Bundles grid */}
+          <div className="p-5 grid sm:grid-cols-2 gap-4">
+            {occasion.bundles.map((bundle) => (
+              <BundleCard
+                key={bundle.tier}
+                bundle={bundle}
+                occasionTitle={occasion.title}
+                occasionId={occasion.id}
+                onAddToCart={onAddToCart}
+              />
+            ))}
+          </div>
+
+          {/* Bulk CTA */}
+          <div
+            className="px-5 pb-5 pt-1 flex items-center gap-2 text-sm font-medium"
+            style={{ color: "oklch(0.45 0.12 45)" }}
+          >
+            <MessageCircle
+              className="w-4 h-4 shrink-0"
+              style={{ color: "oklch(0.52 0.18 145)" }}
+            />
+            For bulk orders, contact us on{" "}
+            <a
+              href="https://wa.me/918792880292"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline font-semibold"
+              style={{ color: "oklch(0.45 0.18 145)" }}
+            >
+              WhatsApp
+            </a>
+          </div>
+        </motion.div>
+      ))}
+    </div>
   );
 }
 
@@ -2020,42 +2453,71 @@ export default function App() {
               </motion.div>
             </div>
 
+            {/* Build Your Box — universal selector banner, visible above all tabs */}
+            <BuildYourBox
+              laddus={laddus}
+              chutneys={chutneys}
+              savouries={savouries}
+              addToCart={addToCart}
+            />
+
             <Tabs defaultValue="laddus">
-              <TabsList
-                className="w-full mb-8 h-14 p-1 rounded-2xl border-2"
-                style={{
-                  backgroundColor: "oklch(0.30 0.10 45)",
-                  borderColor: "oklch(0.58 0.28 38)",
-                }}
-              >
-                <TabsTrigger
-                  data-ocid="offerings.tab"
-                  value="laddus"
-                  className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
-                  style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
+              <div className="overflow-x-auto mb-8 -mx-1 px-1">
+                <TabsList
+                  className="w-full min-w-[480px] h-14 p-1 rounded-2xl border-2"
+                  style={{
+                    backgroundColor: "oklch(0.30 0.10 45)",
+                    borderColor: "oklch(0.58 0.28 38)",
+                  }}
                 >
-                  🍬 Laddus ({laddus.length})
-                </TabsTrigger>
-                <TabsTrigger
-                  data-ocid="offerings.tab"
-                  value="chutneys"
-                  className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
-                  style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
-                >
-                  🌿 Chutney Powders ({chutneys.length})
-                </TabsTrigger>
-                <TabsTrigger
-                  data-ocid="offerings.tab"
-                  value="savouries"
-                  className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
-                  style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
-                >
-                  🥨 Savouries ({savouries.length})
-                </TabsTrigger>
-              </TabsList>
+                  <TabsTrigger
+                    data-ocid="offerings.tab"
+                    value="laddus"
+                    className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
+                    style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
+                  >
+                    <span className="hidden sm:inline">
+                      🍬 Laddus ({laddus.length})
+                    </span>
+                    <span className="sm:hidden">🍬 Laddus</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    data-ocid="offerings.tab"
+                    value="chutneys"
+                    className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
+                    style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
+                  >
+                    <span className="hidden sm:inline">
+                      🌿 Chutney Powders ({chutneys.length})
+                    </span>
+                    <span className="sm:hidden">🌿 Chutneys</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    data-ocid="offerings.tab"
+                    value="savouries"
+                    className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
+                    style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
+                  >
+                    <span className="hidden sm:inline">
+                      🥨 Savouries ({savouries.length})
+                    </span>
+                    <span className="sm:hidden">🥨 Savouries</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    data-ocid="offerings.tab"
+                    value="occasions"
+                    className="flex-1 h-11 rounded-xl font-bold text-sm transition-all data-[state=active]:shadow-warm"
+                    style={{ color: "oklch(0.96 0.04 75)", fontWeight: 700 }}
+                  >
+                    <span className="hidden sm:inline">
+                      🎁 Special Occasions
+                    </span>
+                    <span className="sm:hidden">🎁 Occasions</span>
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
               <TabsContent value="laddus">
-                <LadduCustomizer laddus={laddus} addToCart={addToCart} />
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   {laddus.map((product, i) => (
                     <ProductCard
@@ -2100,6 +2562,10 @@ export default function App() {
                     />
                   ))}
                 </div>
+              </TabsContent>
+
+              <TabsContent value="occasions">
+                <SpecialOccasionsTab onAddToCart={addToCart} />
               </TabsContent>
             </Tabs>
           </div>

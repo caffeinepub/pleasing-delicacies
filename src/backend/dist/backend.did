@@ -1,0 +1,21 @@
+type Product = 
+ record {
+   category: Category;
+   description: text;
+   ingredients: vec text;
+   name: text;
+   nutritionalBenefits: vec text;
+   shelfLife: text;
+   usageSuggestions: vec text;
+ };
+type Category = 
+ variant {
+   chutneyPowder;
+   laddu;
+ };
+service : {
+  addProduct: (product: Product) -> ();
+  getAllProducts: () -> (vec Product) query;
+  getProductsByCategory: (category: Category) -> (vec Product) query;
+  initSampleProducts: () -> ();
+}

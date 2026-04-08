@@ -18,8 +18,7 @@ export interface Product {
 }
 export enum Category {
     laddu = "laddu",
-    chutneyPowder = "chutneyPowder",
-    savoury = "savoury"
+    chutneyPowder = "chutneyPowder"
 }
 export interface backendInterface {
     addProduct(product: Product): Promise<void>;

@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "../backend.d";
-import { useActor } from "./useActor";
+
+export interface BackendProduct {
+  category: string;
+  name: string;
+  description?: string;
+  price?: number;
+  [key: string]: unknown;
+}
 
 export function useGetAllProducts() {
-  const { actor, isFetching } = useActor();
-  return useQuery<Product[]>({
+  return useQuery<BackendProduct[]>({
     queryKey: ["products"],
-    queryFn: async () => {
-      if (!actor) return [];
-      return actor.getAllProducts();
-    },
-    enabled: !!actor && !isFetching,
+    queryFn: async () => [],
+    enabled: false,
   });
 }
