@@ -1362,219 +1362,454 @@ function ProductCard({
 }
 
 // ─────────────────────────────────────────────
-// SPECIAL OCCASIONS
+// SPECIAL OCCASIONS — WELLNESS KITS
 // ─────────────────────────────────────────────
 
-interface OccasionBundle {
-  tier: "Standard" | "Premium";
-  items: string;
-  price: number;
+interface WellnessKitLaddu {
+  name: string;
+  pricing: PricingTier[];
+  image?: string;
 }
 
-interface OccasionData {
+interface WellnessKit {
   id: string;
   title: string;
   subtitle: string;
+  description: string;
   emoji: string;
   gradient: string;
-  bundles: OccasionBundle[];
+  laddus: WellnessKitLaddu[];
 }
 
-const OCCASIONS: OccasionData[] = [
+const WELLNESS_KITS: WellnessKit[] = [
   {
-    id: "corporate",
-    title: "Corporate Gifting",
-    subtitle: "Diwali · Dasara · New Year",
-    emoji: "🪔",
+    id: "kishori-poshan",
+    title: "Kishori Poshan",
+    subtitle: "Puberty Support",
+    description:
+      "A nourishing blend of traditional laddus specially curated for growing girls. Rich in calcium, iron, and healthy fats to support the body through the transition of puberty.",
+    emoji: "🌸",
+    gradient:
+      "linear-gradient(135deg, oklch(0.55 0.22 350), oklch(0.52 0.20 25))",
+    laddus: [
+      {
+        name: "Gond & Nuts Laddu",
+        image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-1.18.20-PM-1.jpeg",
+        pricing: [
+          { weight: "250g", price: 350 },
+          { weight: "500g", price: 680 },
+          { weight: "1kg", price: 1350 },
+        ],
+      },
+      {
+        name: "Til Laddu",
+        image: "/assets/generated/til-laddu.dim_800x600.jpg",
+        pricing: [
+          { weight: "250g", price: 225 },
+          { weight: "500g", price: 450 },
+          { weight: "1kg", price: 900 },
+        ],
+      },
+      {
+        name: "Wheat & Nuts Laddu",
+        image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-2.46.00-PM-1.jpeg",
+        pricing: [
+          { weight: "250g", price: 360 },
+          { weight: "500g", price: 700 },
+          { weight: "1kg", price: 1400 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "garbh-poshan",
+    title: "Garbh Poshan",
+    subtitle: "Pregnancy Nutrition",
+    description:
+      "Wholesome, nutrient-dense laddus crafted to support expectant mothers. Packed with omega-3s, plant protein, calcium, and iron to nourish both mother and baby.",
+    emoji: "🤱",
+    gradient:
+      "linear-gradient(135deg, oklch(0.52 0.20 145), oklch(0.48 0.18 120))",
+    laddus: [
+      {
+        name: "Ragi & Nuts Laddu",
+        image:
+          "/assets/uploads/WhatsApp-Image-2026-03-14-at-2.31.32-PM-1--1.jpeg",
+        pricing: [
+          { weight: "250g", price: 350 },
+          { weight: "500g", price: 680 },
+          { weight: "1kg", price: 1350 },
+        ],
+      },
+      {
+        name: "Urad Dal Laddu",
+        image: "/assets/generated/urad-dal-nuts-laddu.dim_800x600.jpg",
+        pricing: [
+          { weight: "250g", price: 300 },
+          { weight: "500g", price: 450 },
+          { weight: "1kg", price: 900 },
+        ],
+      },
+      {
+        name: "Flax Seeds & Nuts Laddu",
+        image: "/assets/uploads/image-3-1.png",
+        pricing: [
+          { weight: "250g", price: 350 },
+          { weight: "500g", price: 680 },
+          { weight: "1kg", price: 1350 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "sutika-shakti",
+    title: "Sutika Shakti",
+    subtitle: "Postpartum Recovery",
+    description:
+      "A healing collection of traditional laddus designed for new mothers. Fortified with gond, dry fruits, and supergrains to restore strength and vitality after childbirth.",
+    emoji: "💛",
     gradient:
       "linear-gradient(135deg, oklch(0.55 0.22 48), oklch(0.45 0.18 28))",
-    bundles: [
+    laddus: [
       {
-        tier: "Standard",
-        items: "Til Laddu 250g + Urad Dal Laddu 250g + Groundnut Chutney 100g",
-        price: 515,
+        name: "Dry Fruits Laddu",
+        image: "/assets/uploads/Dry-Fruits-Laddu-1.jpeg",
+        pricing: [
+          { weight: "250g", price: 460 },
+          { weight: "500g", price: 900 },
+          { weight: "1kg", price: 1800 },
+        ],
       },
       {
-        tier: "Premium",
-        items:
-          "Gond & Nuts Laddu 250g + Dry Fruits Laddu 250g + Ragi & Nuts Laddu 250g + Moringa Chutney 100g",
-        price: 1195,
-      },
-    ],
-  },
-  {
-    id: "marriage",
-    title: "Marriage Celebrations",
-    subtitle: "Bulk orders for weddings & receptions",
-    emoji: "💐",
-    gradient:
-      "linear-gradient(135deg, oklch(0.48 0.22 20), oklch(0.58 0.24 42))",
-    bundles: [
-      {
-        tier: "Standard",
-        items:
-          "Dry Fruits Laddu 500g + Flax Seeds & Nuts Laddu 500g + Wheat & Nuts Laddu 500g",
-        price: 2280,
+        name: "Gond & Nuts Laddu",
+        image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-1.18.20-PM-1.jpeg",
+        pricing: [
+          { weight: "250g", price: 350 },
+          { weight: "500g", price: 680 },
+          { weight: "1kg", price: 1350 },
+        ],
       },
       {
-        tier: "Premium",
-        items:
-          "Dry Fruits Laddu 1kg + Gond & Nuts Laddu 1kg + Wheat & Nuts Laddu 1kg",
-        price: 4100,
-      },
-    ],
-  },
-  {
-    id: "birthday",
-    title: "Birthday Parties",
-    subtitle: "Make every birthday sweeter",
-    emoji: "🎂",
-    gradient:
-      "linear-gradient(135deg, oklch(0.60 0.24 55), oklch(0.50 0.20 30))",
-    bundles: [
-      {
-        tier: "Standard",
-        items:
-          "Til Laddu 500g + Peri Peri Makhana 100g + Pepper Butter Makhana 100g",
-        price: 1050,
+        name: "Wheat & Nuts Laddu",
+        image: "/assets/uploads/WhatsApp-Image-2026-03-14-at-2.46.00-PM-1.jpeg",
+        pricing: [
+          { weight: "250g", price: 360 },
+          { weight: "500g", price: 700 },
+          { weight: "1kg", price: 1400 },
+        ],
       },
       {
-        tier: "Premium",
-        items:
-          "Urad Dal Laddu 500g + Dry Fruits Laddu 500g + Peri Peri Makhana 100g + Churmuri 400g",
-        price: 1870,
-      },
-    ],
-  },
-  {
-    id: "anniversary",
-    title: "Anniversaries",
-    subtitle: "Celebrate love with traditional sweets",
-    emoji: "❤️",
-    gradient:
-      "linear-gradient(135deg, oklch(0.50 0.25 25), oklch(0.55 0.20 40))",
-    bundles: [
-      {
-        tier: "Standard",
-        items:
-          "Dry Fruits Laddu 500g + Ragi & Nuts Laddu 500g + Curry Leaves Chutney 100g",
-        price: 1175,
+        name: "Ragi & Nuts Laddu",
+        image:
+          "/assets/uploads/WhatsApp-Image-2026-03-14-at-2.31.32-PM-1--1.jpeg",
+        pricing: [
+          { weight: "250g", price: 350 },
+          { weight: "500g", price: 680 },
+          { weight: "1kg", price: 1350 },
+        ],
       },
       {
-        tier: "Premium",
-        items:
-          "Dry Fruits Laddu 1kg + Flax Seeds & Nuts Laddu 1kg + Moringa Chutney 100g",
-        price: 2795,
+        name: "Flax Seeds & Nuts Laddu",
+        image: "/assets/uploads/image-3-1.png",
+        pricing: [
+          { weight: "250g", price: 350 },
+          { weight: "500g", price: 680 },
+          { weight: "1kg", price: 1350 },
+        ],
       },
     ],
   },
 ];
 
-function BundleCard({
-  bundle,
-  occasionTitle,
+interface KitSelection {
+  weight: string;
+  price: number;
+}
+
+function WellnessKitSection({
+  kit,
   onAddToCart,
-  occasionId,
+  kitIndex,
 }: {
-  bundle: OccasionBundle;
-  occasionTitle: string;
+  kit: WellnessKit;
   onAddToCart: (item: CartItem) => void;
-  occasionId: string;
+  kitIndex: number;
 }) {
-  const isPremium = bundle.tier === "Premium";
+  const [selections, setSelections] = useState<Record<string, KitSelection>>(
+    {},
+  );
+
+  const toggleLaddu = (laddu: WellnessKitLaddu) => {
+    setSelections((prev) => {
+      if (prev[laddu.name]) {
+        const next = { ...prev };
+        delete next[laddu.name];
+        return next;
+      }
+      const defaultTier = laddu.pricing[0];
+      return {
+        ...prev,
+        [laddu.name]: { weight: defaultTier.weight, price: defaultTier.price },
+      };
+    });
+  };
+
+  const setWeight = (laddu: WellnessKitLaddu, weight: string) => {
+    const tier = laddu.pricing.find((t) => t.weight === weight);
+    if (!tier) return;
+    setSelections((prev) => ({
+      ...prev,
+      [laddu.name]: { weight, price: tier.price },
+    }));
+  };
+
+  const selectedEntries = Object.entries(selections);
+  const total = selectedEntries.reduce((sum, [, s]) => sum + s.price, 0);
+
+  const handleAddAll = () => {
+    for (const [name, s] of selectedEntries) {
+      onAddToCart({
+        id: `${name}-${s.weight}`,
+        name,
+        weightOption: s.weight,
+        price: s.price,
+        quantity: 1,
+      });
+    }
+    setSelections({});
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
-      className="rounded-2xl overflow-hidden border-2 flex flex-col shadow-lg"
-      style={{
-        borderColor: isPremium ? "oklch(0.65 0.22 50)" : "oklch(0.75 0.14 58)",
-        backgroundColor: isPremium
-          ? "oklch(0.98 0.035 70)"
-          : "oklch(0.99 0.015 72)",
-      }}
+      transition={{ duration: 0.5, delay: kitIndex * 0.1 }}
+      className="rounded-3xl overflow-hidden border border-border shadow-md"
+      style={{ backgroundColor: "oklch(0.98 0.02 72)" }}
     >
-      {/* Tier badge header */}
+      {/* Kit header */}
       <div
-        className="px-4 py-2 flex items-center justify-between"
-        style={{
-          background: isPremium
-            ? "linear-gradient(90deg, oklch(0.55 0.22 48), oklch(0.45 0.18 28))"
-            : "linear-gradient(90deg, oklch(0.70 0.16 60), oklch(0.62 0.18 48))",
-        }}
+        className="px-6 py-5 flex items-center gap-4"
+        style={{ background: kit.gradient }}
       >
-        <span className="text-xs font-bold uppercase tracking-widest text-white/90">
-          {bundle.tier} Bundle
+        <span
+          className="text-4xl leading-none"
+          role="img"
+          aria-label={kit.title}
+        >
+          {kit.emoji}
         </span>
-        {isPremium && (
-          <span className="text-xs text-white/80 flex items-center gap-1">
-            <Sparkles className="w-3 h-3" /> Best Value
-          </span>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-display text-xl font-bold text-white leading-tight">
+            {kit.title}
+          </h3>
+          <p className="text-sm text-white/80 mt-0.5">{kit.subtitle}</p>
+        </div>
+        {selectedEntries.length > 0 && (
+          <div
+            className="shrink-0 px-3 py-1.5 rounded-full text-xs font-bold"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.22)",
+              color: "white",
+            }}
+          >
+            {selectedEntries.length} selected · ₹{total}
+          </div>
         )}
       </div>
 
-      <div className="p-4 flex flex-col gap-3 flex-1">
-        {/* Items list */}
-        <ul className="space-y-1.5">
-          {bundle.items.split(" + ").map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-2 text-sm"
-              style={{ color: "oklch(0.3 0.08 45)" }}
-            >
-              <span
-                className="mt-1 w-1.5 h-1.5 rounded-full shrink-0"
-                style={{
-                  backgroundColor: isPremium
-                    ? "oklch(0.55 0.22 48)"
-                    : "oklch(0.65 0.18 55)",
-                }}
-              />
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        {/* Price */}
-        <div className="flex items-baseline gap-1 mt-1">
-          <span
-            className="text-2xl font-bold font-display"
-            style={{ color: "oklch(0.38 0.15 42)" }}
-          >
-            ₹{bundle.price}
-          </span>
-          <span className="text-xs" style={{ color: "oklch(0.55 0.08 50)" }}>
-            per pack
-          </span>
-        </div>
-      </div>
-
-      <div className="px-4 pb-4">
-        <button
-          type="button"
-          data-ocid={`occasions.bundle.${occasionId}.${bundle.tier.toLowerCase()}`}
-          onClick={() =>
-            onAddToCart({
-              id: `bundle-${occasionId}-${bundle.tier}`,
-              name: `${occasionTitle} — ${bundle.tier} Bundle`,
-              weightOption: bundle.tier,
-              price: bundle.price,
-              quantity: 1,
-            })
-          }
-          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.02] active:scale-95 text-white"
-          style={{
-            background: isPremium
-              ? "linear-gradient(135deg, oklch(0.55 0.22 48), oklch(0.45 0.18 28))"
-              : "linear-gradient(135deg, oklch(0.65 0.20 52), oklch(0.58 0.22 40))",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-          }}
+      <div className="p-5">
+        {/* Description */}
+        <p
+          className="text-sm mb-5 leading-relaxed"
+          style={{ color: "oklch(0.42 0.08 50)" }}
         >
-          <ShoppingCart className="w-4 h-4" />
-          Add to Cart
-        </button>
+          {kit.description}
+        </p>
+
+        {/* Laddu selector cards */}
+        <p
+          className="text-xs font-bold uppercase tracking-wider mb-3"
+          style={{ color: "oklch(0.38 0.2 28)" }}
+        >
+          Select Laddus for your kit:
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+          {kit.laddus.map((laddu) => {
+            const selected = !!selections[laddu.name];
+            const sel = selections[laddu.name];
+            return (
+              <button
+                key={laddu.name}
+                type="button"
+                data-ocid={`wellness_kit.${kit.id}.laddu`}
+                onClick={() => toggleLaddu(laddu)}
+                className="rounded-xl border-2 cursor-pointer transition-all p-3 flex gap-3 items-start text-left w-full"
+                style={{
+                  borderColor: selected
+                    ? "oklch(0.60 0.20 48)"
+                    : "oklch(0.85 0.06 75)",
+                  background: selected ? "oklch(0.96 0.05 65)" : "white",
+                  boxShadow: selected
+                    ? "0 0 0 2px oklch(0.60 0.20 48 / 0.25)"
+                    : "none",
+                }}
+              >
+                {/* Checkbox */}
+                <div
+                  className="flex-shrink-0 w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center"
+                  style={{
+                    borderColor: selected
+                      ? "oklch(0.60 0.20 48)"
+                      : "oklch(0.75 0.06 75)",
+                    background: selected ? "oklch(0.60 0.20 48)" : "white",
+                  }}
+                >
+                  {selected && (
+                    <span className="text-white text-xs font-bold">✓</span>
+                  )}
+                </div>
+
+                {/* Thumbnail */}
+                {laddu.image && (
+                  <img
+                    src={laddu.image}
+                    alt={laddu.name}
+                    className="w-12 h-12 rounded-lg object-cover flex-shrink-0 pointer-events-none"
+                  />
+                )}
+
+                {/* Info */}
+                <div className="flex-1 min-w-0">
+                  <p
+                    className="font-semibold text-sm leading-tight"
+                    style={{ color: "oklch(0.3 0.12 40)" }}
+                  >
+                    {laddu.name}
+                  </p>
+                  {!selected && (
+                    <p
+                      className="text-xs mt-0.5"
+                      style={{ color: "oklch(0.55 0.08 50)" }}
+                    >
+                      {laddu.pricing
+                        .map((t) => `${t.weight} ₹${t.price}`)
+                        .join(" · ")}
+                    </p>
+                  )}
+                  {selected && (
+                    <div
+                      className="mt-2"
+                      onClick={(e) => e.stopPropagation()}
+                      onKeyDown={(e) => e.stopPropagation()}
+                    >
+                      <select
+                        data-ocid={`wellness_kit.${kit.id}.weight_select`}
+                        className="w-full text-sm rounded-lg border px-2 py-1 font-medium focus:outline-none"
+                        style={{
+                          borderColor: "oklch(0.65 0.18 50)",
+                          color: "oklch(0.35 0.15 40)",
+                          background: "white",
+                        }}
+                        value={sel.weight}
+                        onChange={(e) => setWeight(laddu, e.target.value)}
+                      >
+                        {laddu.pricing.map((tier) => (
+                          <option key={tier.weight} value={tier.weight}>
+                            {tier.weight} – ₹{tier.price}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Summary & Add to Cart */}
+        {selectedEntries.length === 0 ? (
+          <p
+            className="text-center text-sm italic py-3"
+            style={{ color: "oklch(0.6 0.08 50)" }}
+          >
+            Tap any laddu above to add it to this kit
+          </p>
+        ) : (
+          <div
+            className="rounded-xl p-4"
+            style={{
+              background: "oklch(0.95 0.06 60)",
+              border: "1px solid oklch(0.80 0.12 50)",
+            }}
+          >
+            <p
+              className="font-bold text-sm mb-2"
+              style={{ color: "oklch(0.35 0.15 40)" }}
+            >
+              Kit Summary:
+            </p>
+            <ul className="space-y-1 mb-3">
+              {selectedEntries.map(([name, s]) => (
+                <li
+                  key={name}
+                  className="flex justify-between text-sm"
+                  style={{ color: "oklch(0.4 0.12 40)" }}
+                >
+                  <span className="truncate mr-2">
+                    {name} <span className="opacity-70">({s.weight})</span>
+                  </span>
+                  <span className="font-semibold shrink-0">₹{s.price}</span>
+                </li>
+              ))}
+            </ul>
+            <div
+              className="flex justify-between font-bold text-base border-t pt-2 mb-3"
+              style={{
+                borderColor: "oklch(0.8 0.1 50)",
+                color: "oklch(0.3 0.15 40)",
+              }}
+            >
+              <span>
+                Total ({selectedEntries.length} item
+                {selectedEntries.length !== 1 ? "s" : ""})
+              </span>
+              <span>₹{total}</span>
+            </div>
+            <button
+              type="button"
+              data-ocid={`wellness_kit.${kit.id}.add_all_button`}
+              onClick={handleAddAll}
+              className="w-full py-3 rounded-xl font-bold text-white text-base shadow-md active:scale-95 transition-transform"
+              style={{ background: kit.gradient }}
+            >
+              🛒 Add Kit to Cart
+            </button>
+          </div>
+        )}
+
+        {/* WhatsApp bulk note */}
+        <div
+          className="mt-4 flex items-center gap-2 text-xs"
+          style={{ color: "oklch(0.48 0.10 48)" }}
+        >
+          <MessageCircle
+            className="w-3.5 h-3.5 shrink-0"
+            style={{ color: "oklch(0.52 0.18 145)" }}
+          />
+          For custom quantities or bulk orders, contact us on{" "}
+          <a
+            href="https://wa.me/918792880292"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline font-semibold"
+            style={{ color: "oklch(0.45 0.18 145)" }}
+          >
+            WhatsApp
+          </a>
+        </div>
       </div>
     </motion.div>
   );
@@ -1584,7 +1819,7 @@ function SpecialOccasionsTab({
   onAddToCart,
 }: { onAddToCart: (item: CartItem) => void }) {
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       {/* Intro banner */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
@@ -1601,100 +1836,30 @@ function SpecialOccasionsTab({
           className="font-display text-xl sm:text-2xl font-bold mb-2"
           style={{ color: "oklch(0.35 0.15 40)" }}
         >
-          🎁 Special Occasion Gift Boxes
+          🌿 Wellness Kits — Traditional Nourishment
         </p>
         <p className="text-sm" style={{ color: "oklch(0.45 0.10 48)" }}>
-          Thoughtfully curated bundles for every celebration — corporate,
-          weddings, birthdays and more.
+          Thoughtfully curated laddu kits rooted in Ayurvedic wisdom —
+          supporting key life stages with authentic homemade nutrition.
           <br className="hidden sm:block" />
-          <span className="font-semibold">Bulk orders available.</span> Contact
-          us on WhatsApp for custom quantities.
+          Select your laddus, choose weights, and add the full kit to cart.
         </p>
       </motion.div>
 
-      {/* Occasion sections */}
-      {OCCASIONS.map((occasion, idx) => (
-        <motion.div
-          key={occasion.id}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: idx * 0.08 }}
-          className="rounded-3xl overflow-hidden border border-border shadow-md"
-          style={{ backgroundColor: "oklch(0.98 0.02 72)" }}
-        >
-          {/* Occasion header */}
-          <div
-            className="px-6 py-5 flex items-center justify-between gap-4"
-            style={{ background: occasion.gradient }}
-          >
-            <div className="flex items-center gap-3">
-              <span
-                className="text-4xl leading-none"
-                role="img"
-                aria-label={occasion.title}
-              >
-                {occasion.emoji}
-              </span>
-              <div>
-                <h3 className="font-display text-xl font-bold text-white leading-tight">
-                  {occasion.title}
-                </h3>
-                <p className="text-sm text-white/80 mt-0.5">
-                  {occasion.subtitle}
-                </p>
-              </div>
-            </div>
-            <div
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.2)",
-                color: "white",
-              }}
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              Bulk orders available
-            </div>
-          </div>
-
-          {/* Bundles grid */}
-          <div className="p-5 grid sm:grid-cols-2 gap-4">
-            {occasion.bundles.map((bundle) => (
-              <BundleCard
-                key={bundle.tier}
-                bundle={bundle}
-                occasionTitle={occasion.title}
-                occasionId={occasion.id}
-                onAddToCart={onAddToCart}
-              />
-            ))}
-          </div>
-
-          {/* Bulk CTA */}
-          <div
-            className="px-5 pb-5 pt-1 flex items-center gap-2 text-sm font-medium"
-            style={{ color: "oklch(0.45 0.12 45)" }}
-          >
-            <MessageCircle
-              className="w-4 h-4 shrink-0"
-              style={{ color: "oklch(0.52 0.18 145)" }}
-            />
-            For bulk orders, contact us on{" "}
-            <a
-              href="https://wa.me/918792880292"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline font-semibold"
-              style={{ color: "oklch(0.45 0.18 145)" }}
-            >
-              WhatsApp
-            </a>
-          </div>
-        </motion.div>
+      {/* Wellness Kit sections */}
+      {WELLNESS_KITS.map((kit, idx) => (
+        <WellnessKitSection
+          key={kit.id}
+          kit={kit}
+          onAddToCart={onAddToCart}
+          kitIndex={idx}
+        />
       ))}
     </div>
   );
 }
+
+// ─── END WELLNESS KITS ────────────────────────────────────────────────────
 
 // ─────────────────────────────────────────────
 // REVIEW FORM COMPONENT
